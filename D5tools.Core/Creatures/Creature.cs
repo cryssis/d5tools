@@ -40,7 +40,7 @@ namespace D5tools.Core.Creatures
         private List<Action> actions;
         private List<Action> reactions;
         private List<Action> legendaryActions;
-        private List<Spell> spells;
+        private List<string> spells;
         private string description;
         private int initMod;
         private int passivePerception;
@@ -75,6 +75,7 @@ namespace D5tools.Core.Creatures
             this.actions = new List<Action>();
             this.reactions = new List<Action>();
             this.legendaryActions = new List<Action>();
+            this.spells = new List<string>();
             this.InitiativeMod = this.Dex.Mod;
         }
 
@@ -387,7 +388,7 @@ namespace D5tools.Core.Creatures
         /// <summary>
         /// Gets or sets the creature spells
         /// </summary>
-        public List<Spell> Spells
+        public List<string> Spells
         {
             get { return this.spells; }
             set { this.spells = value; }

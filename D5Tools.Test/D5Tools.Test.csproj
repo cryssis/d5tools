@@ -113,8 +113,14 @@
     <None Include="D5Tools.Test_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Files\full.xml" />
-    <Content Include="Files\mm.xml" />
+    <Content Include="Files\creaturesFull.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\creaturesMM.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\spellsFull.xml" />
+    <Content Include="Files\spellsPHB.xml" />
     <Content Include="Properties\UnitTestApp.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

@@ -19,6 +19,7 @@ namespace D5tools.Utils.FightClubConverter
     public class FightClubConverter
     {
         private List<Creature> creatures;
+        private List<Spell> spells;
         private char[] wordSeparator = new char[] { ' ' };
         private char[] listSeparator = new char[] { ',' };
         private char[] attackSeparator = new char[] { '|' };
@@ -33,6 +34,7 @@ namespace D5tools.Utils.FightClubConverter
         {
             this.Filename = filename;
             this.creatures = new List<Creature>();
+            this.spells = new List<Spell>();
         }
 
         /// <summary>
@@ -44,14 +46,22 @@ namespace D5tools.Utils.FightClubConverter
         }
 
         /// <summary>
+        /// Gets the spell list
+        /// </summary>
+        public List<Spell> Spells
+        {
+            get { return this.spells; }
+        }
+
+        /// <summary>
         /// Gets or sets the filename
         /// </summary>
         public string Filename { get; set; }
 
         /// <summary>
-        /// Load the creatrures from file
+        /// Load the creatures from file
         /// </summary>
-        public void Load()
+        public void LoadCreatures()
         {
             XDocument doc = XDocument.Load(this.Filename);
 
@@ -186,8 +196,8 @@ namespace D5tools.Utils.FightClubConverter
                             break;
 
                         case "spells":
-                            var spells = this.ParseSpells(tag.Value);
-                            c.Spells = spells.Select(s => new Spell(s)).ToList();
+                            var spells = this.ParseList(tag.Value);
+                            c.Spells = spells.ToList();
                             break;
 
                         case "description":
@@ -204,6 +214,91 @@ namespace D5tools.Utils.FightClubConverter
                 }
 
                 this.creatures.Add(c);
+            }
+        }
+
+        /// <summary>
+        /// Load the spells from file
+        /// </summary>
+        public void LoadSpells()
+        {
+            XDocument doc = XDocument.Load(this.Filename);
+
+            IEnumerable<XElement> library = doc.Descendants("spell");
+
+            foreach (XElement e in library)
+            {
+                Spell s = new Spell();
+
+                foreach (var tag in e.Elements())
+                {
+                    switch (tag.Name.ToString().ToLower())
+                    {
+                        case "name":
+                            var nameParts = this.ParseNotes(tag.Value);
+                            s.Name = nameParts[0];
+                            if (nameParts.Count() > 1)
+                            {
+                                s.Source = this.ParseSource(nameParts[1]);
+                            }
+                            else
+                            {
+                                s.Source = this.ParseSource("PHB");
+                            }
+
+                            break;
+
+                        case "level":
+                            s.Level = int.Parse(tag.Value);
+                            break;
+
+                        case "school":
+                            s.School = this.ParseSchool(tag.Value);
+                            break;
+
+                        case "ritual":
+                            s.IsRitual = true;
+                            break;
+
+                        case "time":
+                            s.Time = tag.Value;
+                            break;
+
+                        case "range":
+                            s.Range = tag.Value;
+                            break;
+
+                        case "components":
+                            s.Components = tag.Value;
+                            break;
+
+                        case "duration":
+                            s.Duration = tag.Value;
+                            s.IsConcentration = s.Duration.ToLower().Contains("concentration");
+                            break;
+
+                        case "classes":
+                            s.Classes = this.ParseList(tag.Value).ToList();
+                            break;
+
+                        case "text":
+                            s.Text.Add(tag.Value);
+                            break;
+
+                        case "roll":
+                            // Ignore
+                            break;
+
+                        default:
+                            throw new FormatException(
+                                string.Format(
+                                    "The tag <{0}> is not allowed.\nSpell: {1}",
+                                    tag.Name.ToString(),
+                                    e.Descendants("name").First().Value));
+                    }
+                }
+
+                this.spells.Add(s);
             }
         }
 
@@ -360,7 +455,43 @@ namespace D5tools.Utils.FightClubConverter
             return action;
         }
 
-        private string[] ParseSpells(string tag)
+        private string ParseSource(string source)
+        {
+            switch (source)
+            {
+                case "PHB": return "Player's Handbook";
+                case "MM": return "Monster Manual";
+                case "DMG": return "Dungeon Master Guide";
+                case "HotDQ": return "Hoard of the Dragon Queen";
+                case "RoT": return "Raise of Tiamat";
+                case "ToD": return "Tiranny of Dragons";
+                case "EE": return "Elemental Evil";
+                case "PotA": return "Princes of the Apocalypse";
+                case "RoD": return "Rage of Demons";
+                case "OotA": return "Out of the Abyss";
+                case "SCAG": return "Sword Coast Adventurer's Guide";
+                case "CoS": return "Curse of Strahd";
+                default: throw new ArgumentException(string.Format("The souce {0} is not valid", source));
+            }
+        }
+
+        private string ParseSchool(string school)
+        {
+            switch (school)
+            {
+                case "A": return "abjuration";
+                case "C": return "conjuration";
+                case "D": return "divination";
+                case "EN": return "enchantment";
+                case "EV": return "evocation";
+                case "I": return "illusion";
+                case "N": return "necromancy";
+                case "T": return "transmutation";
+                default: throw new ArgumentException(string.Format("The school {0} is not valid", school));
+            }
+        }
+
+        private string[] ParseList(string tag)
         {
             return tag.Split(this.listSeparator, StringSplitOptions.RemoveEmptyEntries)
                 .Select(p => p.Trim()).ToArray();
