@@ -4,7 +4,7 @@
 // See LICENSE file in the project root for full license information.
 // </copyright>
 
-namespace D5Tools.Test
+namespace D5tools.Test.Tests
 {
     using System.Diagnostics;
     using System.Linq;

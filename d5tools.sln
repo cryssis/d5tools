@@ -11,9 +11,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D5tools.Utils.FightClubConverter", "D5tools.Utils.FightClubConverter\D5tools.Utils.FightClubConverter.csproj", "{DDFDFC47-5FFE-4FAF-89EF-9FF31388C471}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FightClubConverter", "D5tools.Utils.FightClubConverter\FightClubConverter.csproj", "{DDFDFC47-5FFE-4FAF-89EF-9FF31388C471}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D5Tools.Test", "D5Tools.Test\D5Tools.Test.csproj", "{762C3CE9-9D90-4199-AA70-56C2E2DF6236}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D5tools.Test", "D5Tools.Test\D5tools.Test.csproj", "{762C3CE9-9D90-4199-AA70-56C2E2DF6236}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utils", "Utils", "{E9F2A38A-5BDD-4E23-A139-1733EAE0A283}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{FF5C6031-3513-42BD-840E-94729F97EF93}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,5 +87,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DDFDFC47-5FFE-4FAF-89EF-9FF31388C471} = {E9F2A38A-5BDD-4E23-A139-1733EAE0A283}
+		{762C3CE9-9D90-4199-AA70-56C2E2DF6236} = {FF5C6031-3513-42BD-840E-94729F97EF93}
 	EndGlobalSection
 EndGlobal

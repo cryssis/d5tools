@@ -1,10 +1,10 @@
-﻿// <copyright file="Combatant.cs" company="Roberto Sobreviela">
+﻿// <copyright file="CreatureCombatant.cs" company="Roberto Sobreviela">
 // Copyright (c) Roberto Sobreviela. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // </copyright>
 
-namespace D5tools.Core.Encounters
+namespace D5tools.Core.Combat
 {
     using System;
     using System.Collections.Generic;
@@ -13,9 +13,9 @@ namespace D5tools.Core.Encounters
     using Windows.UI;
 
     /// <summary>
-    /// A combatant in an encounter
+    /// A creature combatant in an encounter
     /// </summary>
-    public class Combatant
+    public class CreatureCombatant
     {
         private string alias;
         private int indexLabel;
@@ -34,18 +34,18 @@ namespace D5tools.Core.Encounters
         private string group;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Combatant"/> class.
+        /// Initializes a new instance of the <see cref="CreatureCombatant"/> class.
         /// </summary>
-        public Combatant()
+        public CreatureCombatant()
             : this(new Creature())
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Combatant"/> class from a <see cref="Creature"/>
+        /// Initializes a new instance of the <see cref="CreatureCombatant"/> class from a <see cref="Creature"/>
         /// </summary>
         /// <param name="creature">A creature.</param>
-        public Combatant(Creature creature)
+        public CreatureCombatant(Creature creature)
         {
             this.creature = creature;
             this.alias = this.creature.Name;
