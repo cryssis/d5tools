@@ -1,25 +1,27 @@
-﻿// <copyright file="Creature.cs" company="Roberto Sobreviela">
+﻿// <copyright file="Character.cs" company="Roberto Sobreviela">
 // Copyright (c) Roberto Sobreviela. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // </copyright>
 
-namespace D5tools.Core.Creatures
+namespace D5tools.Core.Characters
 {
     using System.Collections.Generic;
+    using Creatures;
     using Rules;
 
     /// <summary>
-    /// A Creature StatBlock
+    /// A character.
     /// </summary>
-    public class Creature
+    public class Character
     {
         private string name;
-        private string size;
-        private string type;
-        private string subtype;
-        private string source;
-        private int page;
+        private string playerName;
+        private string race;
+        private string subrace;
+        private string classes;
+        private int characterLevel;
+        private int xp;
         private string alignment;
         private int ac;
         private string acType;
@@ -29,32 +31,26 @@ namespace D5tools.Core.Creatures
         private AbilitySet abilities;
         private SavingThrowSet savingThrows;
         private List<Skill> skills;
-        private string damageVulnerabilities;
-        private string damageResistances;
-        private string damageImmunities;
-        private string conditionImmunities;
         private string senses;
         private string languages;
-        private string cr;
         private List<Trait> traits;
-        private List<Action> actions;
-        private List<Action> reactions;
-        private List<Action> legendaryActions;
         private List<string> spells;
-        private string description;
         private int initMod;
         private int passivePerception;
         private int proficiency;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Creature"/> class.
+        /// Initializes a new instance of the <see cref="Character"/> class.
         /// </summary>
-        public Creature()
+        public Character()
         {
             this.name = string.Empty;
-            this.size = string.Empty;
-            this.type = string.Empty;
-            this.subtype = string.Empty;
+            this.playerName = string.Empty;
+            this.race = string.Empty;
+            this.subrace = string.Empty;
+            this.classes = string.Empty;
+            this.characterLevel = 1;
+            this.xp = 0;
             this.alignment = string.Empty;
             this.ac = 10;
             this.acType = string.Empty;
@@ -64,23 +60,16 @@ namespace D5tools.Core.Creatures
             this.abilities = new AbilitySet();
             this.savingThrows = new SavingThrowSet();
             this.skills = new List<Skill>();
-            this.damageVulnerabilities = string.Empty;
-            this.damageResistances = string.Empty;
-            this.damageImmunities = string.Empty;
-            this.conditionImmunities = string.Empty;
             this.senses = string.Empty;
             this.languages = string.Empty;
-            this.cr = string.Empty;
             this.traits = new List<Trait>();
-            this.actions = new List<Action>();
-            this.reactions = new List<Action>();
-            this.legendaryActions = new List<Action>();
             this.spells = new List<string>();
-            this.InitiativeMod = this.Dex.Mod;
+            this.initMod = this.Dex.Mod;
+            this.proficiency = CATable.ProfbyLevel(this.characterLevel);
         }
 
         /// <summary>
-        /// Gets or sets creature name
+        /// Gets or sets character name
         /// </summary>
         public string Name
         {
@@ -89,48 +78,65 @@ namespace D5tools.Core.Creatures
         }
 
         /// <summary>
-        /// Gets or sets creature size
+        /// Gets or sets character player
         /// </summary>
-        public string Size
+        public string Player
         {
-            get { return this.size; }
-            set { this.size = value; }
+            get { return this.playerName; }
+            set { this.playerName = value; }
         }
 
         /// <summary>
-        /// Gets or sets creature type
+        /// Gets or sets character race
         /// </summary>
-        public string Type
+        public string Race
         {
-            get { return this.type; }
-            set { this.type = value; }
+            get { return this.race; }
+            set { this.race = value; }
         }
 
         /// <summary>
-        /// Gets or sets creature subtype
+        /// Gets or sets character subrace
         /// </summary>
-        public string Subtype
+        public string Subrace
         {
-            get { return this.subtype; }
-            set { this.subtype = value; }
+            get { return this.subrace; }
+            set { this.subrace = value; }
         }
 
         /// <summary>
-        /// Gets or sets creature source book
+        /// Gets or sets character hit dice
         /// </summary>
-        public string Source
+        public string Classes
         {
-            get { return this.source; }
-            set { this.source = value; }
+            get { return this.classes; }
+            set { this.classes = value; }
         }
 
         /// <summary>
-        /// Gets or sets creature source page
+        /// Gets or sets character level
         /// </summary>
-        public int Page
+        public int CharacterLevel
         {
-            get { return this.page; }
-            set { this.page = value; }
+            get
+            {
+                return this.characterLevel;
+            }
+
+            set
+            {
+                this.characterLevel = value;
+                this.proficiency = CATable.ProfbyLevel(value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets character xp
+        /// </summary>
+        public int XP
+        {
+            get { return this.xp; }
+            set { this.xp = value; }
         }
 
         /// <summary>
@@ -143,7 +149,7 @@ namespace D5tools.Core.Creatures
         }
 
         /// <summary>
-        /// Gets or sets creature armor class
+        /// Gets or sets character armor class
         /// </summary>
         public int ArmorClass
         {
@@ -152,7 +158,7 @@ namespace D5tools.Core.Creatures
         }
 
         /// <summary>
-        /// Gets or sets creature armor class type
+        /// Gets or sets character armor class type
         /// </summary>
         public string ArmorClassType
         {
@@ -161,7 +167,7 @@ namespace D5tools.Core.Creatures
         }
 
         /// <summary>
-        /// Gets or sets creature hit points
+        /// Gets or sets character hit points
         /// </summary>
         public int HitPoints
         {
@@ -170,7 +176,7 @@ namespace D5tools.Core.Creatures
         }
 
         /// <summary>
-        /// Gets or sets creature hit dice
+        /// Gets or sets character hit dice
         /// </summary>
         public string HitDice
         {
@@ -179,7 +185,7 @@ namespace D5tools.Core.Creatures
         }
 
         /// <summary>
-        ///  Gets or sets creature speed
+        ///  Gets or sets character speed
         /// </summary>
         public string Speed
         {
@@ -188,7 +194,7 @@ namespace D5tools.Core.Creatures
         }
 
         /// <summary>
-        /// Gets or sets creature abilities
+        /// Gets or sets character abilities
         /// </summary>
         public AbilitySet Abilities
         {
@@ -197,7 +203,7 @@ namespace D5tools.Core.Creatures
         }
 
         /// <summary>
-        /// Gets creature Strength
+        /// Gets character strength ability
         /// </summary>
         public Ability Str
         {
@@ -205,7 +211,7 @@ namespace D5tools.Core.Creatures
         }
 
         /// <summary>
-        /// Gets creature Dexterity
+        /// Gets character dexterity ability
         /// </summary>
         public Ability Dex
         {
@@ -213,7 +219,7 @@ namespace D5tools.Core.Creatures
         }
 
         /// <summary>
-        /// Gets creature Constitution
+        /// Gets character constitution ability
         /// </summary>
         public Ability Con
         {
@@ -221,7 +227,7 @@ namespace D5tools.Core.Creatures
         }
 
         /// <summary>
-        /// Gets creature Intelligence
+        /// Gets character intelligence ability
         /// </summary>
         public Ability Int
         {
@@ -229,7 +235,7 @@ namespace D5tools.Core.Creatures
         }
 
         /// <summary>
-        /// Gets creature Wisdom
+        /// Gets character wisdom ability
         /// </summary>
         public Ability Wis
         {
@@ -237,7 +243,7 @@ namespace D5tools.Core.Creatures
         }
 
         /// <summary>
-        /// Gets creature Charisma
+        /// Gets character charisma ability
         /// </summary>
         public Ability Cha
         {
@@ -245,7 +251,7 @@ namespace D5tools.Core.Creatures
         }
 
         /// <summary>
-        /// Gets creature Proficiency
+        /// Gets character Proficiency
         /// </summary>
         public int Proficiency
         {
@@ -253,7 +259,7 @@ namespace D5tools.Core.Creatures
         }
 
         /// <summary>
-        /// Gets or sets creature saving throws
+        /// Gets or sets character saving throws
         /// </summary>
         public SavingThrowSet SavingThrows
         {
@@ -262,7 +268,7 @@ namespace D5tools.Core.Creatures
         }
 
         /// <summary>
-        /// Gets or sets creature skills
+        /// Gets or sets character skills
         /// </summary>
         public List<Skill> Skills
         {
@@ -271,43 +277,7 @@ namespace D5tools.Core.Creatures
         }
 
         /// <summary>
-        /// Gets or sets creature damage vulnerabilities;
-        /// </summary>
-        public string DamageVulnerabilities
-        {
-            get { return this.damageVulnerabilities; }
-            set { this.damageVulnerabilities = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets creature damage resistances
-        /// </summary>
-        public string DamageResistances
-        {
-            get { return this.damageResistances; }
-            set { this.damageResistances = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets creature damage immunities
-        /// </summary>
-        public string DamageImmunities
-        {
-            get { return this.damageImmunities; }
-            set { this.damageImmunities = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets creature condition immunities
-        /// </summary>
-        public string ConditionImmunities
-        {
-            get { return this.conditionImmunities; }
-            set { this.conditionImmunities = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets creature senses
+        /// Gets or sets character senses
         /// </summary>
         public string Senses
         {
@@ -316,7 +286,7 @@ namespace D5tools.Core.Creatures
         }
 
         /// <summary>
-        /// Gets or sets creature languages
+        /// Gets or sets character languages
         /// </summary>
         public string Languages
         {
@@ -325,64 +295,12 @@ namespace D5tools.Core.Creatures
         }
 
         /// <summary>
-        /// Gets or sets creature challenge rating
-        /// </summary>
-        public string ChallengeRating
-        {
-            get
-            {
-                return this.cr;
-            }
-
-            set
-            {
-                this.cr = value;
-                this.proficiency = CRTable.ProfbyCR(this.cr);
-            }
-        }
-
-        /// <summary>
-        /// Gets creature experience points
-        /// </summary>
-        public int XP
-        {
-            get { return CRTable.XPbyCR(this.cr); }
-        }
-
-        /// <summary>
-        /// Gets or sets the creature traits
+        /// Gets or sets the character traits
         /// </summary>
         public List<Trait> Traits
         {
             get { return this.traits; }
             set { this.traits = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the creature actions
-        /// </summary>
-        public List<Action> Actions
-        {
-            get { return this.actions; }
-            set { this.actions = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the creature reactions
-        /// </summary>
-        public List<Action> Reactions
-        {
-            get { return this.reactions; }
-            set { this.reactions = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the creature legendary actions
-        /// </summary>
-        public List<Action> LegendaryActions
-        {
-            get { return this.legendaryActions; }
-            set { this.legendaryActions = value; }
         }
 
         /// <summary>
@@ -395,7 +313,7 @@ namespace D5tools.Core.Creatures
         }
 
         /// <summary>
-        /// Gets or sets the creature initiative modifier
+        /// Gets or sets the character initiative modifier
         /// </summary>
         public int InitiativeMod
         {
@@ -410,15 +328,6 @@ namespace D5tools.Core.Creatures
         {
             get { return this.passivePerception; }
             set { this.passivePerception = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the creature description
-        /// </summary>
-        public string Description
-        {
-            get { return this.description; }
-            set { this.description = value; }
         }
     }
 }

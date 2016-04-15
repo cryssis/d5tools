@@ -1,23 +1,25 @@
-﻿// <copyright file="CreatureCombatant.cs" company="Roberto Sobreviela">
+﻿// <copyright file="Combatant.cs" company="Roberto Sobreviela">
 // Copyright (c) Roberto Sobreviela. All rights reserved.
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 // </copyright>
 
-namespace D5tools.Core.Combat
+namespace D5tools.Core.Encounters
 {
     using System;
     using System.Collections.Generic;
-    using D5tools.Core.Creatures;
+    using Characters;
+    using Creatures;
     using Dice;
     using Windows.UI;
 
     /// <summary>
-    /// A creature combatant in an encounter
+    /// A combatant in an encounter
     /// </summary>
-    public class CreatureCombatant
+    public class Combatant
     {
         private string alias;
+        private string name;
         private int indexLabel;
         private int maxHP;
         private int currentHP;
@@ -27,28 +29,31 @@ namespace D5tools.Core.Combat
         private List<string> tags;
         private int initMod;
         private int initScore;
+
         private Creature creature;
+        private Character character;
 
         private bool isHidden;
         private bool isPlayer;
         private string group;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CreatureCombatant"/> class.
+        /// Initializes a new instance of the <see cref="Combatant"/> class.
         /// </summary>
-        public CreatureCombatant()
+        public Combatant()
             : this(new Creature())
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CreatureCombatant"/> class from a <see cref="Creature"/>
+        /// Initializes a new instance of the <see cref="Combatant"/> class from a <see cref="Creature"/>
         /// </summary>
         /// <param name="creature">A creature.</param>
-        public CreatureCombatant(Creature creature)
+        public Combatant(Creature creature)
         {
             this.creature = creature;
             this.alias = this.creature.Name;
+            this.name = this.creature.Name;
             this.indexLabel = 0;
             this.maxHP = this.creature.HitPoints;
             this.currentHP = this.creature.HitPoints;
@@ -60,6 +65,30 @@ namespace D5tools.Core.Combat
             this.initScore = 0;
             this.isHidden = false;
             this.isPlayer = false;
+            this.group = this.alias;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Combatant"/> class from a <see cref="Character"/>
+        /// </summary>
+        /// <param name="character">A Character.</param>
+        public Combatant(Character character)
+        {
+            this.character = character;
+            this.alias = this.character.Player;
+            this.name = this.character.Name;
+            this.indexLabel = 0;
+            this.maxHP = this.character.HitPoints;
+            this.currentHP = this.character.HitPoints;
+            this.tempHP = 0;
+            this.ac = this.character.ArmorClass;
+            this.abilities = this.character.Abilities;
+            this.tags = new List<string>();
+            this.initMod = this.character.InitiativeMod;
+            this.initScore = 0;
+            this.isHidden = false;
+            this.isPlayer = true;
+            this.group = this.name;
         }
 
         /// <summary>
@@ -273,9 +302,13 @@ namespace D5tools.Core.Combat
         {
             get
             {
-                var name = this.creature.Name;
+                var name = this.name;
 
-                if (this.alias != string.Empty)
+                if (this.isPlayer)
+                {
+                    return string.Format("{0} ({1})", name, this.alias);
+                }
+                else if (this.alias != string.Empty && this.alias != name)
                 {
                     return this.alias;
                 }

@@ -9,7 +9,7 @@ namespace D5tools.Core.Rules
     using System.Collections.Generic;
 
     /// <summary>
-    /// A utility class for XP calculations
+    /// A utility class for Challenge Rating
     /// </summary>
     public static class CRTable
     {
