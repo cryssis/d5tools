@@ -4,7 +4,7 @@
 // See LICENSE file in the project root for full license information.
 // </copyright>
 
-namespace D5tools.Core.Encounters
+namespace D5tools.Core.Combat
 {
     using System;
     using System.Collections.Generic;

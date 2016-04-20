@@ -110,7 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Characters\Character.cs" />
-    <Compile Include="Encounters\Combatant.cs" />
+    <Compile Include="Combat\Combatant.cs" />
     <Compile Include="Creatures\Ability.cs" />
     <Compile Include="Creatures\AbilitySet.cs" />
     <Compile Include="Creatures\Action.cs" />
@@ -129,6 +129,7 @@
     <Compile Include="Dice\RollElement.cs" />
     <Compile Include="Dice\RollResult.cs" />
     <Compile Include="Encounters\Encounter.cs" />
+    <Compile Include="Encounters\EncounterGroup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rules\CATable.cs" />
     <Compile Include="Rules\CRTable.cs" />
@@ -137,7 +138,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Abilities\" />
-    <Folder Include="Combat\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

@@ -7,14 +7,13 @@
 namespace D5tools.Core.Encounters
 {
     using System.Collections.Generic;
-    using System.Linq;
 
     /// <summary>
     /// An adventure encounter
     /// </summary>
     public class Encounter
     {
-        private List<Combatant> combatants;
+        private List<EncounterGroup> groups;
         private string name;
         private string code;
         private string adventure;
@@ -25,7 +24,7 @@ namespace D5tools.Core.Encounters
         /// </summary>
         public Encounter()
         {
-            this.combatants = new List<Combatant>();
+            this.groups = new List<EncounterGroup>();
             this.name = string.Empty;
             this.code = string.Empty;
             this.adventure = string.Empty;
@@ -69,20 +68,12 @@ namespace D5tools.Core.Encounters
         }
 
         /// <summary>
-        /// Gets or sets encounter combatants
+        /// Gets or sets the encounter groups
         /// </summary>
-        public List<Combatant> Combatants
+        public List<EncounterGroup> Groups
         {
-            get { return this.combatants; }
-            set { this.combatants = value; }
-        }
-
-        /// <summary>
-        /// Gets the encounter groups
-        /// </summary>
-        public List<string> Groups
-        {
-            get { return this.combatants.Select(c => c.Group).Distinct().ToList(); }
+            get { return this.groups; }
+            set { this.groups = value; }
         }
     }
 }
