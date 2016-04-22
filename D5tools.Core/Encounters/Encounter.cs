@@ -7,6 +7,8 @@
 namespace D5tools.Core.Encounters
 {
     using System.Collections.Generic;
+    using System.Linq;
+    using Creatures;
 
     /// <summary>
     /// An adventure encounter
@@ -74,6 +76,56 @@ namespace D5tools.Core.Encounters
         {
             get { return this.groups; }
             set { this.groups = value; }
+        }
+
+        /// <summary>
+        /// Gets the encounter Creatures
+        /// </summary>
+        public List<Creature> Creatures
+        {
+            get { return this.groups.Select(g => g.Creature).ToList(); }
+        }
+
+        /// <summary>
+        /// Gets the encounter XP value
+        /// </summary>
+        public int XP
+        {
+            get { return this.groups.Sum(g => g.XP); }
+        }
+
+        /// <summary>
+        /// Adds a Creature to the encounter
+        /// </summary>
+        /// <param name="c">The creature to add</param>
+        public void AddCreature(Creature c)
+        {
+            var group = this.groups.Find(g => g.Creature.Name == c.Name);
+            if (group == null)
+            {
+                this.Groups.Add(new EncounterGroup(c));
+            }
+            else
+            {
+                group.Number += 1;
+            }
+        }
+
+        /// <summary>
+        /// Removes a Creature from the encounter
+        /// </summary>
+        /// <param name="c">The creature to remove</param>
+        public void RemoveCreature(Creature c)
+        {
+            var group = this.groups.Find(g => g.Creature.Name == c.Name);
+            if ((group != null) && (group.Number == 1))
+            {
+                this.Groups.Remove(group);
+            }
+            else
+            {
+                group.Number -= 1;
+            }
         }
     }
 }

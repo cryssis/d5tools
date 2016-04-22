@@ -117,6 +117,7 @@
     <Compile Include="Creatures\Attack.cs" />
     <Compile Include="Creatures\AttackType.cs" />
     <Compile Include="Creatures\Creature.cs" />
+    <Compile Include="Creatures\CreatureBase.cs" />
     <Compile Include="Creatures\Damage.cs" />
     <Compile Include="Creatures\DamageType.cs" />
     <Compile Include="Creatures\SavingThrow.cs" />
