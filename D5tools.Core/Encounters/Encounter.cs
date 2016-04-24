@@ -8,6 +8,7 @@ namespace D5tools.Core.Encounters
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Characters;
     using Creatures;
 
     /// <summary>
@@ -92,6 +93,20 @@ namespace D5tools.Core.Encounters
         public int XP
         {
             get { return this.groups.Sum(g => g.XP); }
+        }
+
+        /// <summary>
+        /// Gets the encounter adjusted XP value
+        /// </summary>
+        /// <param name="p">The character party size facing the encounter</param>
+        /// <returns>The Adjusted XP value for the encounter</returns>
+        public int AdjustedXP(PartySize p)
+        {
+            var m = this.Groups.Sum(g => g.Number);
+            var multiplier = EncounterMultiplier.GetMultiplier(m, p);
+            var xp = this.XP;
+            var adjustedXP = xp * multiplier;
+            return (int)adjustedXP;
         }
 
         /// <summary>

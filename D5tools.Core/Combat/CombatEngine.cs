@@ -13,20 +13,15 @@ namespace D5tools.Core.Combat
     using System.Threading.Tasks;
     using Characters;
     using Encounters;
+
     /// <summary>
     /// The Combat engine
     /// </summary>
     public class CombatEngine
     {
         private List<Combatant> combatants;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CombatEngine"/> class.
-        /// </summary>
-        public CombatEngine()
-        {
-            this.combatants = new List<Combatant>();
-        }
+        private Party party;
+        private Encounter encounter;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CombatEngine"/> class.
@@ -34,6 +29,7 @@ namespace D5tools.Core.Combat
         /// <param name="e">The encounter to be played</param>
         /// <param name="p">The Character Party</param>
         public CombatEngine(Encounter e, Party p)
+            : this()
         {
             foreach (var c in p.Characters)
             {
@@ -49,6 +45,16 @@ namespace D5tools.Core.Combat
                     this.combatants.Add(cb);
                 }
             }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CombatEngine"/> class.
+        /// </summary>
+        private CombatEngine()
+        {
+            this.combatants = new List<Combatant>();
+            this.party = new Party();
+            this.encounter = new Encounter();
         }
 
         /// <summary>
