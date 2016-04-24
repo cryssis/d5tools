@@ -1,9 +1,13 @@
-﻿namespace D5tools.Test.Tests
+﻿// <copyright file="EncounterTest.cs" company="Roberto Sobreviela">
+// Copyright (c) Roberto Sobreviela. All rights reserved.
+// Licensed under the MIT license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+
+namespace D5tools.Test.Tests
 {
-    using System.Diagnostics;
     using System.Linq;
     using Core.Encounters;
-    using D5tools.Core.Creatures;
     using D5tools.Utils.FightClubConverter;
     using Xunit;
     using Xunit.Abstractions;
@@ -13,8 +17,8 @@
     /// </summary>
     public class EncounterTest
     {
+        private const string MonsterFile = "Files/creaturesFull.xml";
         private readonly ITestOutputHelper output;
-        private const string monsterFile = "Files/creaturesFull.xml";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EncounterTest"/> class.
@@ -31,7 +35,7 @@
         [Fact]
         public void EncounterCreate()
         {
-            FightClubConverter bestiary = new FightClubConverter(monsterFile);
+            FightClubConverter bestiary = new FightClubConverter(MonsterFile);
             bestiary.LoadCreatures();
 
             var e1 = new Encounter();
@@ -53,15 +57,15 @@
             e1.AddCreature(c3);
             e1.AddCreature(c4);
 
-            ShowEncounter(e1);
+            this.ShowEncounter(e1);
 
             e1.RemoveCreature(c1);
 
-            ShowEncounter(e1);
+            this.ShowEncounter(e1);
 
             e1.RemoveCreature(c2);
 
-            ShowEncounter(e1);
+            this.ShowEncounter(e1);
 
             Assert.True(true);
         }
@@ -71,12 +75,14 @@
             this.output.WriteLine("Name: {0} - {1}", e.Code, e.Name);
             this.output.WriteLine("Adventure: {0}", e.Adventure);
             this.output.WriteLine("Monsters:");
+
             foreach (var g in e.Groups)
             {
                 this.output.WriteLine("- {0} [{4}] ({1}) x{2} = {3}", g.Creature.Name, g.Creature.XP, g.Number, g.XP, g.Creature.Subtype);
             }
+
             this.output.WriteLine("Total XP: {0}", e.XP);
-            this.output.WriteLine("");
+            this.output.WriteLine(string.Empty);
         }
     }
 }

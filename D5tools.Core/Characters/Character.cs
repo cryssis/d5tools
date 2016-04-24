@@ -37,7 +37,7 @@ namespace D5tools.Core.Characters
             this.classes = string.Empty;
             this.characterLevel = 1;
             this.xp = 0;
-            this.proficiency = CATable.ProfbyLevel(this.characterLevel);
+            this.proficiency = CATable.ProfByLevel(this.characterLevel);
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace D5tools.Core.Characters
             set
             {
                 this.characterLevel = value;
-                this.proficiency = CATable.ProfbyLevel(value);
+                this.proficiency = CATable.ProfByLevel(value);
             }
         }
 

@@ -110,7 +110,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Characters\Character.cs" />
+    <Compile Include="Characters\Party.cs" />
     <Compile Include="Combat\Combatant.cs" />
+    <Compile Include="Combat\CombatEngine.cs" />
     <Compile Include="Creatures\Ability.cs" />
     <Compile Include="Creatures\AbilitySet.cs" />
     <Compile Include="Creatures\Action.cs" />
@@ -129,6 +131,9 @@
     <Compile Include="Dice\DieRoll.cs" />
     <Compile Include="Dice\RollElement.cs" />
     <Compile Include="Dice\RollResult.cs" />
+    <Compile Include="Creatures\DifficultyLevel.cs" />
+    <Compile Include="Encounters\EncounterMultiplier.cs" />
+    <Compile Include="Rules\XPThreshold.cs" />
     <Compile Include="Encounters\Encounter.cs" />
     <Compile Include="Encounters\EncounterGroup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
