@@ -100,13 +100,40 @@ namespace D5tools.Core.Encounters
         /// </summary>
         /// <param name="p">The character party size facing the encounter</param>
         /// <returns>The Adjusted XP value for the encounter</returns>
-        public int AdjustedXP(PartySize p)
+        public int GetAdjustedXP(PartySize p)
         {
             var m = this.Groups.Sum(g => g.Number);
             var multiplier = EncounterMultiplier.GetMultiplier(m, p);
             var xp = this.XP;
             var adjustedXP = xp * multiplier;
             return (int)adjustedXP;
+        }
+
+        /// <summary>
+        /// Gets the encounter difficulty
+        /// </summary>
+        /// <param name="p">The character party facinf the encounter</param>
+        /// <returns>The difficulty level for the enconter for the party</returns>
+        public DifficultyLevel GetDifficulty(Party p)
+        {
+            var adjustedXP = this.GetAdjustedXP(p.Size);
+            var thresholds = p.XPThreshold;
+            if (adjustedXP < thresholds.EasyXP)
+            {
+                return DifficultyLevel.Trivial;
+            }
+
+            if (adjustedXP < thresholds.MediumXP)
+            {
+                return DifficultyLevel.Easy;
+            }
+
+            if (adjustedXP < thresholds.HardXP)
+            {
+                return DifficultyLevel.Hard;
+            }
+
+            return DifficultyLevel.Deadly;
         }
 
         /// <summary>

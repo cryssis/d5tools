@@ -19,6 +19,11 @@ namespace D5tools.Core.Characters
     public enum PartySize
     {
         /// <summary>
+        /// Party has no characters
+        /// </summary>
+        None,
+
+        /// <summary>
         /// Party size of 1 or 2 characters
         /// </summary>
         Small,
@@ -84,6 +89,26 @@ namespace D5tools.Core.Characters
                 }
 
                 return th;
+            }
+        }
+
+        /// <summary>
+        /// Gets the party size
+        /// </summary>
+        public PartySize Size
+        {
+            get
+            {
+                switch (this.Count)
+                {
+                    case 0: return PartySize.None;
+                    case 1:
+                    case 2: return PartySize.Small;
+                    case 3:
+                    case 4:
+                    case 5: return PartySize.Normal;
+                    default: return PartySize.Large;
+                }
             }
         }
     }
