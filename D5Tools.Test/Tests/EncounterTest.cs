@@ -7,6 +7,7 @@
 namespace D5tools.Test.Tests
 {
     using System.Linq;
+    using Core.Characters;
     using Core.Encounters;
     using D5tools.Utils.FightClubConverter;
     using Xunit;
@@ -32,8 +33,11 @@ namespace D5tools.Test.Tests
         /// <summary>
         /// Create an encounter
         /// </summary>
-        [Fact]
-        public void EncounterCreate()
+        [Theory]
+        [InlineData(PartySize.Small)]
+        [InlineData(PartySize.Normal)]
+        [InlineData(PartySize.Large)]
+        public void EncounterCreate(PartySize p)
         {
             FightClubConverter bestiary = new FightClubConverter(MonsterFile);
             bestiary.LoadCreatures();
@@ -57,20 +61,20 @@ namespace D5tools.Test.Tests
             e1.AddCreature(c3);
             e1.AddCreature(c4);
 
-            this.ShowEncounter(e1);
+            this.ShowEncounter(e1, p);
 
             e1.RemoveCreature(c1);
 
-            this.ShowEncounter(e1);
+            this.ShowEncounter(e1, p);
 
             e1.RemoveCreature(c2);
 
-            this.ShowEncounter(e1);
+            this.ShowEncounter(e1, p);
 
             Assert.True(true);
         }
 
-        private void ShowEncounter(Encounter e)
+        private void ShowEncounter(Encounter e, PartySize p)
         {
             this.output.WriteLine("Name: {0} - {1}", e.Code, e.Name);
             this.output.WriteLine("Adventure: {0}", e.Adventure);
@@ -82,6 +86,7 @@ namespace D5tools.Test.Tests
             }
 
             this.output.WriteLine("Total XP: {0}", e.XP);
+            this.output.WriteLine("Adjusted XP: {0}", e.GetAdjustedXP(p));
             this.output.WriteLine(string.Empty);
         }
     }
