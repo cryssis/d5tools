@@ -33,6 +33,7 @@ namespace D5tools.Test.Tests
         /// <summary>
         /// Create an encounter
         /// </summary>
+        /// <param name="p">The party size</param>
         [Theory]
         [InlineData(PartySize.Small)]
         [InlineData(PartySize.Normal)]

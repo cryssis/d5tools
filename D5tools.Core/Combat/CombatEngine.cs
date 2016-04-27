@@ -31,18 +31,21 @@ namespace D5tools.Core.Combat
         public CombatEngine(Encounter e, Party p)
             : this()
         {
-            foreach (var c in p.Characters)
+            this.encounter = e;
+            this.party = p;
+
+            foreach (var c in this.party.Characters)
             {
                 var cb = new Combatant(c);
-                this.combatants.Add(cb);
+                this.AddCombatant(cb);
             }
 
-            foreach (var g in e.Groups)
+            foreach (var g in this.encounter.Groups)
             {
                 for (var i = 1; i <= g.Number; i++)
                 {
                     var cb = new Combatant(g.Creature);
-                    this.combatants.Add(cb);
+                    this.AddCombatant(cb);
                 }
             }
         }
@@ -58,12 +61,59 @@ namespace D5tools.Core.Combat
         }
 
         /// <summary>
-        /// Gets or sets the combatants in the combat
+        /// Gets the combatants in the combat
         /// </summary>
         public List<Combatant> Combatants
         {
             get { return this.combatants; }
-            set { this.combatants = value; }
+        }
+
+        /// <summary>
+        /// Adds a Combatant to the combat
+        /// </summary>
+        /// <param name="c">The combatant</param>
+        public void AddCombatant(Combatant c)
+        {
+            c.IndexLabel = this.combatants.Where(cb => cb.Group == c.Group).Count() + 1;
+            this.combatants.Add(c);
+        }
+
+        /// <summary>
+        /// Clears the Initiative Score for all combatants
+        /// </summary>
+        public void ClearInitiative()
+        {
+            this.combatants.ForEach(cb => cb.InitiativeScore = 0);
+        }
+
+        /// <summary>
+        /// Rolls initiative for the combat
+        /// </summary>
+        /// <param name="grouped">Roll same initiative for creature groups. Default true.</param>
+        public void RollInitiative(bool grouped = true)
+        {
+            this.ClearInitiative();
+            var groups = this.combatants.Select(cb => cb.Group).Distinct();
+            foreach (var group in groups)
+            {
+                var combatants = this.combatants.Where(cb => cb.Group == group);
+                if (!combatants.First().IsPlayer && grouped)
+                {
+                    combatants.First().RollInitiative();
+                    var initScore = combatants.First().InitiativeScore;
+                    foreach (var cb in combatants.Skip(1))
+                    {
+                        cb.InitiativeScore = initScore;
+                    }
+                }
+                else
+                {
+                    foreach (var cb in combatants)
+                    {
+                        cb.RollInitiative();
+                    }
+                }
+            }
         }
     }
 }

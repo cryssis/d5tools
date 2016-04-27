@@ -260,7 +260,7 @@ namespace D5tools.Core.Combat
         /// </summary>
         public string Group
         {
-            get { return this.Group; }
+            get { return this.group; }
             set { this.group = value; }
         }
 
@@ -333,6 +333,10 @@ namespace D5tools.Core.Combat
         {
             DieRoll initRoll = new DieRoll(1, 20, this.initMod);
             this.initScore = initRoll.Roll().Total;
+            if (this.initScore < 0)
+            {
+                this.initScore = 0;
+            }
         }
 
         /// <summary>
