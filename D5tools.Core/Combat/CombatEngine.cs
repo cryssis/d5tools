@@ -115,5 +115,13 @@ namespace D5tools.Core.Combat
                 }
             }
         }
+
+        /// <summary>
+        /// Sorts the combatants by Inititative order
+        /// </summary>
+        public void SortByInitiative()
+        {
+            this.combatants.Sort();
+        }
     }
 }

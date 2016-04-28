@@ -6,6 +6,8 @@
 
 namespace D5tools.Test.Tests
 {
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Linq;
     using Core.Characters;
     using Core.Combat;
@@ -53,9 +55,68 @@ namespace D5tools.Test.Tests
             this.output.WriteLine("Roll initiative!!!");
             combat.RollInitiative();
             this.ShowCombat(combat);
+            combat.SortByInitiative();
+            this.ShowCombat(combat);
 
             this.output.WriteLine("Roll initiative!!!");
             combat.RollInitiative(false);
+            this.ShowCombat(combat);
+            combat.SortByInitiative();
+            this.ShowCombat(combat);
+
+            Assert.True(true);
+        }
+
+        /// <summary>
+        /// Sort by Initiative
+        /// </summary>
+        /// <param name="grouped">The creaters are grouped</param>
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void SortInititative(bool grouped)
+        {
+            var encounter = this.BuildEncounter();
+            var party = this.BuildParty();
+            var combat = new CombatEngine(encounter, party);
+            int p = 0, c = 0;
+
+            int[] initPlayer = new int[] { 7, 12, 13, 4, 4 };
+            int[] initCreature = new int[] { 2, 11, 16, 14, 4, 7, 9 };
+
+            foreach (var cb in combat.Combatants)
+            {
+                if (cb.IsPlayer)
+                {
+                    cb.InitiativeScore = initPlayer[p];
+                    p++;
+                }
+                else
+                {
+                    if (grouped)
+                    {
+                        if (cb.InitiativeScore == 0)
+                        {
+                            var combatants = combat.Combatants.Where(creatures => creatures.Group == cb.Group);
+                            foreach (var cr in combatants)
+                            {
+                                cr.InitiativeScore = initCreature[c];
+                            }
+
+                            c++;
+                        }
+                    }
+                    else
+                    {
+                        cb.InitiativeScore = initCreature[c];
+                        c++;
+                    }
+                }
+            }
+
+            this.ShowCombat(combat);
+
+            combat.SortByInitiative();
             this.ShowCombat(combat);
 
             Assert.True(true);
@@ -91,6 +152,7 @@ namespace D5tools.Test.Tests
             {
                 var character = new Character();
                 character.Name = string.Format("Player {0}", i);
+                character.Player = string.Format("Jugador {0}", i);
                 character.CharacterLevel = 4;
                 character.Abilities = new AbilitySet(15, 14, 8, 12, 14, 13);
                 party.Characters.Add(character);
@@ -107,10 +169,10 @@ namespace D5tools.Test.Tests
 
             foreach (var g in e.Groups)
             {
-                this.output.WriteLine("- {0} [{4} - {5}] ({1}) x{2} = {3}", g.Creature.Name, g.Creature.XP, g.Number, g.XP, g.Creature.Type, g.Creature.Subtype);
+                this.output.WriteLine("- {0} [{4} - {5}] ({1}xp) x{2} = {3}xp", g.Creature.Name, g.Creature.XP, g.Number, g.XP, g.Creature.Type, g.Creature.Subtype);
             }
 
-            this.output.WriteLine("Total XP: {0}", e.XP);
+            this.output.WriteLine("Total XP: {0}xp", e.XP);
             this.output.WriteLine(string.Empty);
         }
 
@@ -120,7 +182,7 @@ namespace D5tools.Test.Tests
 
             foreach (var c in p.Characters)
             {
-                this.output.WriteLine(" - {0} ({1})", c.Name, c.CharacterLevel);
+                this.output.WriteLine(" - {0} (Level {1})", c.Name, c.CharacterLevel);
             }
 
             this.output.WriteLine(string.Empty);
@@ -131,7 +193,7 @@ namespace D5tools.Test.Tests
             this.output.WriteLine("Combat:");
             foreach (var c in combat.Combatants)
             {
-                this.output.WriteLine(" - {0} -> {1}", c.DisplayName, c.InitiativeScore);
+                this.output.WriteLine(" - {0} {4} -> [{1}]->[{2}] {3}", c.DisplayName, c.InitiativeRoll, c.InitiativeResult, c.InitiativeScore, c.DisplayHP);
             }
 
             this.output.WriteLine(string.Empty);

@@ -69,6 +69,8 @@ namespace D5tools.Core.Creatures
             this.actions = new List<Action>();
             this.reactions = new List<Action>();
             this.spells = new List<string>();
+            this.initMod = this.abilities.Dex.Mod;
+            this.passivePerception = 10 + this.abilities.Wis.Mod;
         }
 
         /// <summary>

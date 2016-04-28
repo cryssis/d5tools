@@ -43,7 +43,6 @@ namespace D5tools.Core.Creatures
             this.cr = string.Empty;
             this.legendaryActions = new List<Action>();
             this.lairActions = new List<Action>();
-            this.InitiativeMod = this.Dex.Mod;
         }
 
         /// <summary>

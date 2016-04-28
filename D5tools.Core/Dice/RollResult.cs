@@ -7,6 +7,7 @@
 namespace D5tools.Core.Dice
 {
     using System.Collections.Generic;
+    using Utils;
 
     /// <summary>
     /// RollResult represents the result of rolling some dice.
@@ -35,6 +36,47 @@ namespace D5tools.Core.Dice
         /// Gets or sets the total of the dice rolls included the modifier.
         /// </summary>
         public int Total { get; set; }
+
+        /// <summary>
+        /// Gets the result in text format
+        /// </summary>
+        public string Text
+        {
+            get
+            {
+                string text = string.Empty;
+                foreach (var r in this.Rolls)
+                {
+                    if (text == string.Empty)
+                    {
+                        text = string.Format("{0}", r.Result);
+                    }
+                    else
+                    {
+                        text += string.Format(",{0}", r.Result);
+                    }
+                }
+
+                if (text != string.Empty)
+                {
+                    text = string.Format("({0})", text);
+                }
+
+                if (this.Mod != 0)
+                {
+                    text += this.Mod.PlusFormat();
+                }
+
+                if (this.Rolls.Count != 0 || this.Mod != 0)
+                {
+                    text += string.Format(" = ");
+                }
+
+                text += this.Total;
+
+                return text;
+            }
+        }
 
         /// <summary>
         /// The + operator for adding RollResult.

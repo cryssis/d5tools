@@ -7,6 +7,7 @@
 namespace D5tools.Core.Combat
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using Characters;
     using Creatures;
@@ -16,7 +17,7 @@ namespace D5tools.Core.Combat
     /// <summary>
     /// A combatant in an encounter
     /// </summary>
-    public class Combatant
+    public class Combatant : IComparable<Combatant>
     {
         private string alias;
         private string name;
@@ -28,6 +29,8 @@ namespace D5tools.Core.Combat
         private AbilitySet abilities;
         private List<string> tags;
         private int initMod;
+        private DieRoll initRoll;
+        private RollResult initResult;
         private int initScore;
 
         private Creature creature;
@@ -327,12 +330,29 @@ namespace D5tools.Core.Combat
         }
 
         /// <summary>
+        /// Gets the initiative roll
+        /// </summary>
+        public string InitiativeRoll
+        {
+            get { return this.initRoll != null ? this.initRoll.Text : string.Empty; }
+        }
+
+        /// <summary>
+        /// Gets the initiative result
+        /// </summary>
+        public string InitiativeResult
+        {
+            get { return this.initResult != null ? this.initResult.Text : string.Empty; }
+        }
+
+        /// <summary>
         /// Rolls initiative for this combatant
         /// </summary>
         public void RollInitiative()
         {
-            DieRoll initRoll = new DieRoll(1, 20, this.initMod);
-            this.initScore = initRoll.Roll().Total;
+            this.initRoll = new DieRoll(1, 20, this.initMod + this.abilities.Dex.Mod);
+            this.initResult = this.initRoll.Roll();
+            this.initScore = this.initResult.Total;
             if (this.initScore < 0)
             {
                 this.initScore = 0;
@@ -393,6 +413,35 @@ namespace D5tools.Core.Combat
             }
 
             this.TempHP = cthp;
+        }
+
+        /// <summary>
+        /// Compares to combatants to order by Initiative Score descending
+        /// </summary>
+        /// <param name="other">The other combatant to compare to</param>
+        /// <returns>if goes before or after in initiative order</returns>
+        public int CompareTo(Combatant other)
+        {
+            if (this.InitiativeScore < other.InitiativeScore)
+            {
+                return 1;
+            }
+            else if (this.InitiativeScore > other.InitiativeScore)
+            {
+                return -1;
+            }
+            else if (!this.IsPlayer)
+            {
+                return -1;
+            }
+            else if (!other.IsPlayer)
+            {
+                return 1;
+            }
+            else
+            {
+                return -1;
+            }
         }
     }
 }
