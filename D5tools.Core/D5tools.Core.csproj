@@ -125,7 +125,7 @@
     <Compile Include="Creatures\SavingThrow.cs" />
     <Compile Include="Creatures\SavingThrowSet.cs" />
     <Compile Include="Creatures\Skill.cs" />
-    <Compile Include="Creatures\Spell.cs" />
+    <Compile Include="Spells\Spell.cs" />
     <Compile Include="Creatures\Trait.cs" />
     <Compile Include="Dice\DieResult.cs" />
     <Compile Include="Dice\DieRoll.cs" />
@@ -142,9 +142,7 @@
     <Compile Include="Utils\StringExtensions.cs" />
     <EmbeddedResource Include="Properties\D5tools.Core.rd.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Abilities\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

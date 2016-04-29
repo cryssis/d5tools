@@ -36,8 +36,8 @@ namespace D5tools.Core.Combat
         private Creature creature;
         private Character character;
 
-        private bool isHidden;
-        private bool isPlayer;
+        private bool hidden;
+        private bool player;
         private string group;
 
         /// <summary>
@@ -66,8 +66,8 @@ namespace D5tools.Core.Combat
             this.tags = new List<string>();
             this.initMod = this.creature.InitiativeMod;
             this.initScore = 0;
-            this.isHidden = false;
-            this.isPlayer = false;
+            this.hidden = false;
+            this.player = false;
             this.group = this.alias;
         }
 
@@ -89,8 +89,8 @@ namespace D5tools.Core.Combat
             this.tags = new List<string>();
             this.initMod = this.character.InitiativeMod;
             this.initScore = 0;
-            this.isHidden = false;
-            this.isPlayer = true;
+            this.hidden = false;
+            this.player = true;
             this.group = this.name;
         }
 
@@ -245,8 +245,8 @@ namespace D5tools.Core.Combat
         /// </summary>
         public bool IsHidden
         {
-            get { return this.isHidden; }
-            set { this.isHidden = value; }
+            get { return this.hidden; }
+            set { this.hidden = value; }
         }
 
         /// <summary>
@@ -254,8 +254,8 @@ namespace D5tools.Core.Combat
         /// </summary>
         public bool IsPlayer
         {
-            get { return this.isPlayer; }
-            set { this.isPlayer = value; }
+            get { return this.player; }
+            set { this.player = value; }
         }
 
         /// <summary>
@@ -307,7 +307,7 @@ namespace D5tools.Core.Combat
             {
                 var name = this.name;
 
-                if (this.isPlayer)
+                if (this.player)
                 {
                     return string.Format("{0} ({1})", name, this.alias);
                 }

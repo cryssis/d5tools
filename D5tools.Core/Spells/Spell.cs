@@ -4,7 +4,7 @@
 // See LICENSE file in the project root for full license information.
 // </copyright>
 
-namespace D5tools.Core.Creatures
+namespace D5tools.Core.Spells
 {
     using System.Collections.Generic;
 
