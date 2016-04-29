@@ -22,6 +22,9 @@ namespace D5tools.Core.Combat
         private List<Combatant> combatants;
         private Party party;
         private Encounter encounter;
+        private bool running;
+        private Combatant active;
+        private int round;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CombatEngine"/> class.
@@ -58,6 +61,7 @@ namespace D5tools.Core.Combat
             this.combatants = new List<Combatant>();
             this.party = new Party();
             this.encounter = new Encounter();
+            this.active = null;
         }
 
         /// <summary>
@@ -66,6 +70,30 @@ namespace D5tools.Core.Combat
         public List<Combatant> Combatants
         {
             get { return this.combatants; }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether the combat engine is running;
+        /// </summary>
+        public bool IsRunning
+        {
+            get { return this.running; }
+        }
+
+        /// <summary>
+        /// Gets the combat round
+        /// </summary>
+        public int Round
+        {
+            get { return this.round; }
+        }
+
+        /// <summary>
+        /// Gets the active combatant
+        /// </summary>
+        public Combatant Active
+        {
+            get { return this.active; }
         }
 
         /// <summary>
@@ -97,12 +125,17 @@ namespace D5tools.Core.Combat
             foreach (var group in groups)
             {
                 var combatants = this.combatants.Where(cb => cb.Group == group);
-                if (!combatants.First().IsPlayer && grouped)
+                var first = combatants.First();
+                if (!first.IsPlayer && grouped)
                 {
-                    combatants.First().RollInitiative();
-                    var initScore = combatants.First().InitiativeScore;
+                    first.RollInitiative();
+                    var initScore = first.InitiativeScore;
+                    var initResult = first.InitiativeResult;
+                    var initRoll = first.InitiativeRoll;
                     foreach (var cb in combatants.Skip(1))
                     {
+                        cb.InitiativeResult = initResult;
+                        cb.InitiativeRoll = initRoll;
                         cb.InitiativeScore = initScore;
                     }
                 }
@@ -114,6 +147,63 @@ namespace D5tools.Core.Combat
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Starts the engine
+        /// </summary>
+        public void Start()
+        {
+            this.SortByInitiative();
+            this.round = 1;
+            this.active = this.combatants.First();
+            this.running = true;
+        }
+
+        /// <summary>
+        /// Ends the engine
+        /// </summary>
+        public void End()
+        {
+            this.running = false;
+            this.active = null;
+        }
+
+        /// <summary>
+        /// Moves to Next Turn
+        /// </summary>
+        public void Next()
+        {
+            var next = this.combatants.IndexOf(this.active) + 1;
+            if (next >= this.combatants.Count)
+            {
+                next = 0;
+                this.round++;
+            }
+
+            this.active = this.combatants[next];
+        }
+
+        /// <summary>
+        /// Moves to Previous Turn
+        /// </summary>
+        public void Previous()
+        {
+            var prev = this.combatants.IndexOf(this.active) - 1;
+            if (prev < 0)
+            {
+                if (this.round > 1)
+                {
+                    prev = this.combatants.Count - 1;
+                    this.round--;
+                }
+                else
+                {
+                    return;
+                }
+            }
+
+            this.active = this.combatants[prev];
         }
 
         /// <summary>

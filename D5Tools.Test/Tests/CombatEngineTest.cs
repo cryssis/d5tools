@@ -50,19 +50,19 @@ namespace D5tools.Test.Tests
             this.ShowParty(party);
 
             var combat = new CombatEngine(encounter, party);
-            this.ShowCombat(combat);
+            this.ShowCombatInitiative(combat);
 
             this.output.WriteLine("Roll initiative!!!");
             combat.RollInitiative();
-            this.ShowCombat(combat);
+            this.ShowCombatInitiative(combat);
             combat.SortByInitiative();
-            this.ShowCombat(combat);
+            this.ShowCombatInitiative(combat);
 
             this.output.WriteLine("Roll initiative!!!");
             combat.RollInitiative(false);
-            this.ShowCombat(combat);
+            this.ShowCombatInitiative(combat);
             combat.SortByInitiative();
-            this.ShowCombat(combat);
+            this.ShowCombatInitiative(combat);
 
             Assert.True(true);
         }
@@ -117,7 +117,42 @@ namespace D5tools.Test.Tests
             this.ShowCombat(combat);
 
             combat.SortByInitiative();
+            this.ShowCombatInitiative(combat);
+
+            Assert.True(true);
+        }
+
+        /// <summary>
+        /// Turn and Round Movement
+        /// </summary>
+        [Fact]
+        public void CombatMoveTest()
+        {
+            var encounter = this.BuildEncounter();
+            var party = this.BuildParty();
+            var combat = new CombatEngine(encounter, party);
+
+            this.output.WriteLine("Roll initiative!!!");
+            combat.RollInitiative();
+            this.ShowCombatInitiative(combat);
+
+            combat.Start();
             this.ShowCombat(combat);
+            this.output.WriteLine("Next!");
+            combat.Next();
+            this.ShowCombat(combat);
+            this.output.WriteLine("Back!");
+            combat.Previous();
+            this.ShowCombat(combat);
+            this.output.WriteLine("Oops!");
+            combat.Previous();
+            this.ShowCombat(combat);
+            for (var i = 1; i <= 20; i++)
+            {
+                this.output.WriteLine("Next!");
+                combat.Next();
+                this.ShowCombat(combat);
+            }
 
             Assert.True(true);
         }
@@ -188,12 +223,23 @@ namespace D5tools.Test.Tests
             this.output.WriteLine(string.Empty);
         }
 
-        private void ShowCombat(CombatEngine combat)
+        private void ShowCombatInitiative(CombatEngine combat)
         {
-            this.output.WriteLine("Combat:");
+            this.output.WriteLine("Initiative:");
             foreach (var c in combat.Combatants)
             {
-                this.output.WriteLine(" - {0} {4} -> [{1}]->[{2}] {3}", c.DisplayName, c.InitiativeRoll, c.InitiativeResult, c.InitiativeScore, c.DisplayHP);
+                this.output.WriteLine(" - {0} {4} -> [{1}]->[{2}] {3}", c.DisplayName, c.InitiativeRoll.Text, c.InitiativeResult.Text, c.InitiativeScore, c.DisplayHP);
+            }
+
+            this.output.WriteLine(string.Empty);
+        }
+
+        private void ShowCombat(CombatEngine combat)
+        {
+            this.output.WriteLine("Combat: Round {0}, Initiative count: {1}", combat.Round, combat.Active.InitiativeScore);
+            foreach (var c in combat.Combatants)
+            {
+                this.output.WriteLine(" {0} [{1}]: {2} {3}", c == combat.Active ? ">" : "-", c.InitiativeScore, c.DisplayName, c.DisplayHP);
             }
 
             this.output.WriteLine(string.Empty);

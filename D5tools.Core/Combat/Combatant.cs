@@ -330,19 +330,21 @@ namespace D5tools.Core.Combat
         }
 
         /// <summary>
-        /// Gets the initiative roll
+        /// Gets or sets the initiative roll
         /// </summary>
-        public string InitiativeRoll
+        public DieRoll InitiativeRoll
         {
-            get { return this.initRoll != null ? this.initRoll.Text : string.Empty; }
+            get { return this.initRoll; }
+            set { this.initRoll = value; }
         }
 
         /// <summary>
-        /// Gets the initiative result
+        /// Gets or sets the initiative result
         /// </summary>
-        public string InitiativeResult
+        public RollResult InitiativeResult
         {
-            get { return this.initResult != null ? this.initResult.Text : string.Empty; }
+            get { return this.initResult; }
+            set { this.initResult = value; }
         }
 
         /// <summary>
