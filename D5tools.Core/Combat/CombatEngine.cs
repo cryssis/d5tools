@@ -129,14 +129,11 @@ namespace D5tools.Core.Combat
                 if (!first.IsPlayer && grouped)
                 {
                     first.RollInitiative();
-                    var initScore = first.InitiativeScore;
-                    var initResult = first.InitiativeResult;
-                    var initRoll = first.InitiativeRoll;
                     foreach (var cb in combatants.Skip(1))
                     {
-                        cb.InitiativeResult = initResult;
-                        cb.InitiativeRoll = initRoll;
-                        cb.InitiativeScore = initScore;
+                        cb.InitiativeResult = first.InitiativeResult;
+                        cb.InitiativeRoll = first.InitiativeRoll;
+                        cb.InitiativeScore = first.InitiativeScore;
                     }
                 }
                 else

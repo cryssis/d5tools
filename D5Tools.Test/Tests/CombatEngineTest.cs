@@ -114,7 +114,7 @@ namespace D5tools.Test.Tests
                 }
             }
 
-            this.ShowCombat(combat);
+            this.ShowCombatInitiative(combat);
 
             combat.SortByInitiative();
             this.ShowCombatInitiative(combat);
@@ -228,7 +228,14 @@ namespace D5tools.Test.Tests
             this.output.WriteLine("Initiative:");
             foreach (var c in combat.Combatants)
             {
-                this.output.WriteLine(" - {0} {4} -> [{1}]->[{2}] {3}", c.DisplayName, c.InitiativeRoll.Text, c.InitiativeResult.Text, c.InitiativeScore, c.DisplayHP);
+                if (c.InitiativeRoll == null)
+                {
+                    this.output.WriteLine(" - {0} {1}", c.DisplayName, c.DisplayHP);
+                }
+                else
+                {
+                    this.output.WriteLine(" - {0} {1} -> [{2}]->[{3}] {4}", c.DisplayName, c.DisplayHP, c.InitiativeRoll.Text, c.InitiativeResult.Text, c.InitiativeScore);
+                }
             }
 
             this.output.WriteLine(string.Empty);
