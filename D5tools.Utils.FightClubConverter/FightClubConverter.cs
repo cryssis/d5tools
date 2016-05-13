@@ -10,9 +10,9 @@ namespace D5tools.Utils.FightClubConverter
     using System.Collections.Generic;
     using System.Linq;
     using System.Xml.Linq;
-    using Core.Creatures;
-    using Core.Spells;
-    using Core.Utils;
+    using D5tools.Core.Creatures;
+    using D5tools.Core.Extensions;
+    using D5tools.Core.Spells;
 
     /// <summary>
     /// Creature File Reader for Fight Club files

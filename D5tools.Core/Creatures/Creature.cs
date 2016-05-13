@@ -7,7 +7,7 @@
 namespace D5tools.Core.Creatures
 {
     using System.Collections.Generic;
-    using Rules;
+    using D5tools.Core.Rules;
 
     /// <summary>
     /// A Creature StatBlock

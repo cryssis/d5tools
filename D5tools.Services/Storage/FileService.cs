@@ -4,7 +4,7 @@
 // See LICENSE file in the project root for full license information.
 // </copyright>
 
-namespace D5tools.Services.StorageServices
+namespace D5tools.Services.Storage
 {
     using System;
     using System.Diagnostics;

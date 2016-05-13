@@ -109,10 +109,18 @@
     <AdditionalFiles Include="stylecop.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataServices\DataService.cs" />
+    <Compile Include="Data\Database.cs" />
+    <Compile Include="Data\DataService.cs" />
+    <Compile Include="Data\IDataService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StorageServices\FileService.cs" />
+    <Compile Include="Storage\FileService.cs" />
     <EmbeddedResource Include="Properties\D5tools.Services.rd.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\D5tools.Core\D5tools.Core.csproj">
+      <Project>{21CA96F3-1D19-484C-9379-20000F3DB8DA}</Project>
+      <Name>D5tools.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

@@ -7,7 +7,7 @@
 namespace D5tools.Core.Dice
 {
     using System.Collections.Generic;
-    using Utils;
+    using D5tools.Core.Extensions;
 
     /// <summary>
     /// RollResult represents the result of rolling some dice.
