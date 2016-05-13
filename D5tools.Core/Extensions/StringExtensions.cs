@@ -4,10 +4,9 @@
 // See LICENSE file in the project root for full license information.
 // </copyright>
 
-namespace D5tools.Core.Utils
+namespace D5tools.Core.Extensions
 {
     using System;
-    using System.Linq;
     using System.Text.RegularExpressions;
 
     /// <summary>

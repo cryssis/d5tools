@@ -11,7 +11,7 @@ namespace D5tools.Core.Dice
     using System.Linq;
     using System.Runtime.Serialization;
     using System.Text.RegularExpressions;
-    using Utils;
+    using D5tools.Core.Extensions;
 
     /// <summary>
     /// Represents a Dice Roll composed of several die rolls and a modifier.

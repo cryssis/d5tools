@@ -6,13 +6,10 @@
 
 namespace D5tools.Core.Combat
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using Characters;
-    using Encounters;
+    using D5tools.Core.Characters;
+    using D5tools.Core.Encounters;
 
     /// <summary>
     /// The Combat engine

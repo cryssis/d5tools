@@ -7,11 +7,10 @@
 namespace D5tools.Core.Combat
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
-    using Characters;
-    using Creatures;
-    using Dice;
+    using D5tools.Core.Characters;
+    using D5tools.Core.Creatures;
+    using D5tools.Core.Dice;
     using Windows.UI;
 
     /// <summary>
