@@ -139,7 +139,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rules\CATable.cs" />
     <Compile Include="Rules\CRTable.cs" />
-    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Utils\StringExtensions.cs" />
     <EmbeddedResource Include="Properties\D5tools.Core.rd.xml" />
   </ItemGroup>
   <ItemGroup />

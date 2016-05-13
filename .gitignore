@@ -210,9 +210,3 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
-/D5tools.Data/stylecop.json
-/D5tools.Data/Properties/D5tools.Data.rd.xml
-/D5tools.Data/Properties/AssemblyInfo.cs
-/D5tools.Data/project.json
-/D5tools.Data/D5tools.Data.nuget.targets
-/D5tools.Data/D5tools.Data.csproj

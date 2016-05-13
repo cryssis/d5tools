@@ -6,8 +6,9 @@
 
 namespace D5tools.Core.Characters
 {
-    using D5tools.Core.Creatures;
-    using D5tools.Core.Rules;
+    using System.Collections.Generic;
+    using Creatures;
+    using Rules;
 
     /// <summary>
     /// A character.

@@ -8,8 +8,8 @@ namespace D5tools.Core.Encounters
 {
     using System.Collections.Generic;
     using System.Linq;
-    using D5tools.Core.Characters;
-    using D5tools.Core.Creatures;
+    using Characters;
+    using Creatures;
 
     /// <summary>
     /// An adventure encounter

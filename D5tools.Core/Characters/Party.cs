@@ -6,8 +6,12 @@
 
 namespace D5tools.Core.Characters
 {
+    using System;
     using System.Collections.Generic;
-    using D5tools.Core.Rules;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Rules;
 
     /// <summary>
     /// Sizes of Character Parties
