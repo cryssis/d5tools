@@ -4,7 +4,7 @@
     <NuGetPackageRoot>$(UserProfile)\.nuget\packages\</NuGetPackageRoot>
   </PropertyGroup>
   <ImportGroup>
-    <Import Project="$(NuGetPackageRoot)\Template10\1.1.10\build\uap10.0\Template10.targets" Condition="Exists('$(NuGetPackageRoot)\Template10\1.1.10\build\uap10.0\Template10.targets')" />
+    <Import Project="$(NuGetPackageRoot)\Template10\1.1.11\build\uap10.0\Template10.targets" Condition="Exists('$(NuGetPackageRoot)\Template10\1.1.11\build\uap10.0\Template10.targets')" />
     <Import Project="$(NuGetPackageRoot)\xunit.runner.visualstudio\2.1.0\build\uap10.0\xunit.runner.visualstudio.targets" Condition="Exists('$(NuGetPackageRoot)\xunit.runner.visualstudio\2.1.0\build\uap10.0\xunit.runner.visualstudio.targets')" />
   </ImportGroup>
 </Project>

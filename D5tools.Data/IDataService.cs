@@ -4,9 +4,11 @@
 // See LICENSE file in the project root for full license information.
 // </copyright>
 
-namespace D5tools.Services.Data
+namespace D5tools.Data
 {
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Threading.Tasks;
     using D5tools.Core.Characters;
     using D5tools.Core.Creatures;
     using D5tools.Core.Encounters;
@@ -18,23 +20,9 @@ namespace D5tools.Services.Data
     public interface IDataService
     {
         /// <summary>
-        /// Gets or sets the bestiary of creatures;
+        /// Gets a collection of creatures
         /// </summary>
-        List<Creature> Bestiary { get; set; }
-
-        /// <summary>
-        /// Gets or sets the grimoire of spells
-        /// </summary>
-        List<Spell> Grimoire { get; set; }
-
-        /// <summary>
-        /// Gets or sets the character list.
-        /// </summary>
-        List<Character> Characters { get; set; }
-
-        /// <summary>
-        /// Gets or sets the encounters list
-        /// </summary>
-        List<Encounter> Encounters { get; set; }
+        /// <returns>A collection of creatures</returns>
+        Task<ObservableCollection<Creature>> GetCreaturesAsync();
     }
 }

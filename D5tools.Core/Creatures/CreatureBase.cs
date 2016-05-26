@@ -16,6 +16,8 @@ namespace D5tools.Core.Creatures
         /// <summary>
         /// Creatures name
         /// </summary>
+        private int id;
+
         private string name;
 
         private string size;
@@ -50,6 +52,7 @@ namespace D5tools.Core.Creatures
         /// </summary>
         public CreatureBase()
         {
+            this.id = 0;
             this.name = string.Empty;
             this.size = string.Empty;
             this.type = string.Empty;
@@ -71,6 +74,15 @@ namespace D5tools.Core.Creatures
             this.spells = new List<string>();
             this.initMod = this.abilities.Dex.Mod;
             this.passivePerception = 10 + this.abilities.Wis.Mod;
+        }
+
+        /// <summary>
+        /// Gets or sets creature id
+        /// </summary>
+        public int Id
+        {
+            get { return this.id; }
+            set { this.id = value; }
         }
 
         /// <summary>
