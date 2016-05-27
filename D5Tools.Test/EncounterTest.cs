@@ -7,9 +7,9 @@
 namespace D5tools.Test.Tests
 {
     using System.Linq;
-    using Core.Characters;
-    using Core.Encounters;
-    using D5tools.Utils.FightClubConverter;
+    using D5tools.Core.Characters;
+    using D5tools.Core.Encounters;
+    using D5tools.Data.Systems.FightClub;
     using Xunit;
     using Xunit.Abstractions;
 
@@ -18,7 +18,7 @@ namespace D5tools.Test.Tests
     /// </summary>
     public class EncounterTest
     {
-        private const string MonsterFile = "Files/creaturesFull.xml";
+        private const string MonsterFile = "data/creaturesFull.xml";
         private readonly ITestOutputHelper output;
 
         /// <summary>

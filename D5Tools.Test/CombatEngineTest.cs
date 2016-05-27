@@ -4,16 +4,14 @@
 // See LICENSE file in the project root for full license information.
 // </copyright>
 
-namespace D5tools.Test.Tests
+namespace D5tools.Test
 {
-    using System.Collections;
-    using System.Collections.Generic;
     using System.Linq;
-    using Core.Characters;
-    using Core.Combat;
-    using Core.Creatures;
-    using Core.Encounters;
-    using Utils.FightClubConverter;
+    using D5tools.Core.Characters;
+    using D5tools.Core.Combat;
+    using D5tools.Core.Creatures;
+    using D5tools.Core.Encounters;
+    using D5tools.Data.Systems.FightClub;
     using Xunit;
     using Xunit.Abstractions;
 
@@ -22,7 +20,7 @@ namespace D5tools.Test.Tests
     /// </summary>
     public class CombatEngineTest
     {
-        private const string MonsterFile = "Files/creaturesFull.xml";
+        private const string MonsterFile = "data/creaturesFull.xml";
         private readonly ITestOutputHelper output;
         private FightClubConverter bestiary;
 

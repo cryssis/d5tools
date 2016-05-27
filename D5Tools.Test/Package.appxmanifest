@@ -1,28 +1,45 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="d5c5161f-5a4c-45bf-bdfc-4e0058fc4541" Publisher="CN=rsobreviela" Version="1.0.0.0" />
-  <mp:PhoneIdentity PhoneProductId="d5c5161f-5a4c-45bf-bdfc-4e0058fc4541" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  IgnorableNamespaces="uap mp">
+
+  <Identity Name="23353ddb-4033-4560-9778-c82b379584e7"
+            Publisher="CN=rsobreviela"
+            Version="1.0.0.0" />
+
+  <mp:PhoneIdentity PhoneProductId="23353ddb-4033-4560-9778-c82b379584e7" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+
   <Properties>
-    <DisplayName>D5Tools.Test</DisplayName>
+    <DisplayName>D5tools.Test</DisplayName>
     <PublisherDisplayName>rsobreviela</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
+  
   <Dependencies>
     <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
   </Dependencies>
+
   <Resources>
     <Resource Language="x-generate" />
   </Resources>
   <Applications>
-    <Application Id="vstest.executionengine.universal.App" Executable="$targetnametoken$.exe" EntryPoint="D5Tools.Test.App">
-      <uap:VisualElements DisplayName="D5 Tools Testing Framework" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="D5Tools.Test" BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png">
-        </uap:DefaultTile>
+    <Application Id="vstest.executionengine.universal.App" 
+        Executable="$targetnametoken$.exe"
+        EntryPoint="D5tools.Test.App">
+      <uap:VisualElements
+        DisplayName="D5tools.Test"
+        Square150x150Logo="Assets\Square150x150Logo.png"
+        Square44x44Logo="Assets\Square44x44Logo.png"
+        Description="D5tools.Test"
+        BackgroundColor="transparent">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
     </Application>
   </Applications>
   <Capabilities>
     <Capability Name="internetClient" />
-  </Capabilities>
+  </Capabilities> 
 </Package>

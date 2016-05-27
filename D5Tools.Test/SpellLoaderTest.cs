@@ -4,12 +4,10 @@
 // See LICENSE file in the project root for full license information.
 // </copyright>
 
-namespace D5tools.Test.Tests
+namespace D5tools.Test
 {
-    using System.Diagnostics;
     using System.Linq;
-    using D5tools.Core.Creatures;
-    using D5tools.Utils.FightClubConverter;
+    using D5tools.Data.Systems.FightClub;
     using Xunit;
     using Xunit.Abstractions;
 
@@ -35,8 +33,8 @@ namespace D5tools.Test.Tests
         /// <param name="filename">The spell file</param>
         /// <param name="shouldPass">Whether the test should pass</param>
         [Theory]
-        [InlineData("Files/spellsPHB.xml", false)]
-        [InlineData("Files/spellsFull.xml", true)]
+        [InlineData("data/spellsPHB.xml", false)]
+        [InlineData("data/spellsFull.xml", true)]
         public void SpellLoading(string filename, bool shouldPass)
         {
             FightClubConverter loader = new FightClubConverter(filename);
@@ -51,10 +49,10 @@ namespace D5tools.Test.Tests
         /// <param name="filename">the spell file</param>
         /// <param name="name">the string to search in the spell name</param>
         [Theory]
-        [InlineData("Files/spellsFull.xml", "Protection")]
-        [InlineData("Files/spellsFull.xml", "bolt")]
-        [InlineData("Files/spellsFull.xml", "wall")]
-        [InlineData("Files/spellsFull.xml", "blade")]
+        [InlineData("data/spellsFull.xml", "Protection")]
+        [InlineData("data/spellsFull.xml", "bolt")]
+        [InlineData("data/spellsFull.xml", "wall")]
+        [InlineData("data/spellsFull.xml", "blade")]
         public void SpellOutput(string filename, string name)
         {
             FightClubConverter loader = new FightClubConverter(filename);

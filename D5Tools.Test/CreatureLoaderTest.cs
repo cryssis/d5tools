@@ -4,12 +4,10 @@
 // See LICENSE file in the project root for full license information.
 // </copyright>
 
-namespace D5tools.Test.Tests
+namespace D5tools.Test
 {
-    using System.Diagnostics;
     using System.Linq;
-    using D5tools.Core.Creatures;
-    using D5tools.Utils.FightClubConverter;
+    using D5tools.Data.Systems.FightClub;
     using Xunit;
     using Xunit.Abstractions;
 
@@ -35,13 +33,13 @@ namespace D5tools.Test.Tests
         /// <param name="filename">The creature file</param>
         /// <param name="shouldPass">Whether the test should pass</param>
         [Theory]
-        [InlineData("Files/creaturesMM.xml", false)]
-        [InlineData("Files/creaturesFull.xml", true)]
-        public void CreatureLoading(string filename, bool shouldPass)
+        [InlineData("data/creaturesMM.xml", false)]
+        [InlineData("data/creaturesFull.xml", true)]
+        public async void CreatureLoading(string filename, bool shouldPass)
         {
-            FightClubConverter loader = new FightClubConverter(filename);
-            loader.LoadCreatures();
-            var full = loader.Creatures.Count(c => c.Name == "Zuggtmoy") == 1;
+            CreatureTextReader loader = new CreatureTextReader();
+            var bestiary = await loader.LoadFromFile(filename);
+            var full = bestiary.Count(c => c.Name == "Zuggtmoy") == 1;
             Assert.True(full == shouldPass);
         }
 
@@ -51,14 +49,14 @@ namespace D5tools.Test.Tests
         /// <param name="filename">the spell file</param>
         /// <param name="name">the string to search in the creature name</param>
         [Theory]
-        [InlineData("Files/creaturesFull.xml", "Crushing Wave")]
-        [InlineData("Files/creaturesFull.xml", "Priest")]
-        [InlineData("Files/creaturesFull.xml", "Giant")]
-        public void CreatureOutput(string filename, string name)
+        [InlineData("data/creaturesFull.xml", "Crushing Wave")]
+        [InlineData("data/creaturesFull.xml", "Priest")]
+        [InlineData("data/creaturesFull.xml", "Giant")]
+        public async void CreatureOutput(string filename, string name)
         {
-            FightClubConverter loader = new FightClubConverter(filename);
-            loader.LoadCreatures();
-            loader.Creatures
+            CreatureTextReader loader = new CreatureTextReader();
+            var bestiary = await loader.LoadFromFile(filename);
+            bestiary
                 .Where(c => c.Name.ToLower().Contains(name.ToLower())).ToList()
                 .ForEach(c => this.output.WriteLine("{0} ({1}) - {2}", c.Name, c.Type, c.Source));
             Assert.True(true);

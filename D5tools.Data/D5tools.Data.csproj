@@ -109,6 +109,7 @@
     <AdditionalFiles Include="stylecop.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Systems\FightClub\FightClubConverter.cs" />
     <Compile Include="IDataService.cs" />
     <Compile Include="Systems\DataItemTextReader.cs" />
     <Compile Include="Systems\FightClub\CreatureTextReader.cs" />

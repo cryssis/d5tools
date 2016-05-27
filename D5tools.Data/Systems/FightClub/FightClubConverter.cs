@@ -4,7 +4,7 @@
 // See LICENSE file in the project root for full license information.
 // </copyright>
 
-namespace D5tools.Utils.FightClubConverter
+namespace D5tools.Data.Systems.FightClub
 {
     using System;
     using System.Collections.Generic;
