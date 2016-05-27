@@ -10,7 +10,7 @@ namespace D5tools.Services.Storage
     using System.Diagnostics;
     using System.IO;
     using System.Threading.Tasks;
-    using Newtonsoft.Json;
+    using Windows.ApplicationModel;
     using Windows.Storage;
 
     /// <summary>
@@ -39,6 +39,9 @@ namespace D5tools.Services.Storage
 
                 case StorageStrategies.Temporary:
                     return Path.Combine(ApplicationData.Current.TemporaryFolder.Path, key);
+
+                case StorageStrategies.Package:
+                    return Path.Combine(Package.Current.InstalledLocation.Path, key);
 
                 default:
                     throw new NotSupportedException(location.ToString());
@@ -104,6 +107,9 @@ namespace D5tools.Services.Storage
                 case StorageStrategies.Temporary:
                     return await ApplicationData.Current.TemporaryFolder.CreateFileAsync(key, option);
 
+                case StorageStrategies.Package:
+                    return await Package.Current.InstalledLocation.CreateFileAsync(key, option);
+
                 default:
                     throw new NotSupportedException(location.ToString());
             }
@@ -126,6 +132,10 @@ namespace D5tools.Services.Storage
 
                     case StorageStrategies.Temporary:
                         result = await ApplicationData.Current.TemporaryFolder.GetFileAsync(key);
+                        break;
+
+                    case StorageStrategies.Package:
+                        result = await Package.Current.InstalledLocation.GetFileAsync(key);
                         break;
 
                     default:

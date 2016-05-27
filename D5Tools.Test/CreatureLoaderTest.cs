@@ -6,6 +6,7 @@
 
 namespace D5tools.Test
 {
+    using System;
     using System.Linq;
     using D5tools.Data.Systems.FightClub;
     using Xunit;
@@ -33,12 +34,14 @@ namespace D5tools.Test
         /// <param name="filename">The creature file</param>
         /// <param name="shouldPass">Whether the test should pass</param>
         [Theory]
-        [InlineData("data/creaturesMM.xml", false)]
-        [InlineData("data/creaturesFull.xml", true)]
+        [InlineData("creaturesMM.xml", false)]
+        [InlineData("creaturesFull.xml", true)]
         public async void CreatureLoading(string filename, bool shouldPass)
         {
             CreatureTextReader loader = new CreatureTextReader();
-            var bestiary = await loader.LoadFromFile(filename);
+            var install = Windows.ApplicationModel.Package.Current.InstalledLocation;
+            var folder = await install.GetFolderAsync("data");
+            var bestiary = await loader.LoadFromFile(filename, folder);
             var full = bestiary.Count(c => c.Name == "Zuggtmoy") == 1;
             Assert.True(full == shouldPass);
         }
@@ -49,13 +52,16 @@ namespace D5tools.Test
         /// <param name="filename">the spell file</param>
         /// <param name="name">the string to search in the creature name</param>
         [Theory]
-        [InlineData("data/creaturesFull.xml", "Crushing Wave")]
-        [InlineData("data/creaturesFull.xml", "Priest")]
-        [InlineData("data/creaturesFull.xml", "Giant")]
+        [InlineData("creaturesFull.xml", "Crushing Wave")]
+        [InlineData("creaturesFull.xml", "Priest")]
+        [InlineData("creaturesFull.xml", "Giant")]
         public async void CreatureOutput(string filename, string name)
         {
             CreatureTextReader loader = new CreatureTextReader();
-            var bestiary = await loader.LoadFromFile(filename);
+            var install = Windows.ApplicationModel.Package.Current.InstalledLocation;
+            var folder = await install.GetFolderAsync("data");
+            var bestiary = await loader.LoadFromFile(filename, folder);
+
             bestiary
                 .Where(c => c.Name.ToLower().Contains(name.ToLower())).ToList()
                 .ForEach(c => this.output.WriteLine("{0} ({1}) - {2}", c.Name, c.Type, c.Source));

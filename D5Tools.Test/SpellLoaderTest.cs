@@ -6,6 +6,7 @@
 
 namespace D5tools.Test
 {
+    using System;
     using System.Linq;
     using D5tools.Data.Systems.FightClub;
     using Xunit;
@@ -33,13 +34,15 @@ namespace D5tools.Test
         /// <param name="filename">The spell file</param>
         /// <param name="shouldPass">Whether the test should pass</param>
         [Theory]
-        [InlineData("data/spellsPHB.xml", false)]
-        [InlineData("data/spellsFull.xml", true)]
-        public void SpellLoading(string filename, bool shouldPass)
+        [InlineData("spellsPHB.xml", false)]
+        [InlineData("spellsFull.xml", true)]
+        public async void SpellLoading(string filename, bool shouldPass)
         {
-            FightClubConverter loader = new FightClubConverter(filename);
-            loader.LoadSpells();
-            var full = loader.Spells.Count(s => s.Name == "Absorb Elements") == 1;
+            SpellTextReader loader = new SpellTextReader();
+            var install = Windows.ApplicationModel.Package.Current.InstalledLocation;
+            var folder = await install.GetFolderAsync("data");
+            var grimoire = await loader.LoadFromFile(filename, folder);
+            var full = grimoire.Count(s => s.Name == "Absorb Elements") == 1;
             Assert.True(full == shouldPass);
         }
 
@@ -49,15 +52,17 @@ namespace D5tools.Test
         /// <param name="filename">the spell file</param>
         /// <param name="name">the string to search in the spell name</param>
         [Theory]
-        [InlineData("data/spellsFull.xml", "Protection")]
-        [InlineData("data/spellsFull.xml", "bolt")]
-        [InlineData("data/spellsFull.xml", "wall")]
-        [InlineData("data/spellsFull.xml", "blade")]
-        public void SpellOutput(string filename, string name)
+        [InlineData("spellsFull.xml", "Protection")]
+        [InlineData("spellsFull.xml", "bolt")]
+        [InlineData("spellsFull.xml", "wall")]
+        [InlineData("spellsFull.xml", "blade")]
+        public async void SpellOutput(string filename, string name)
         {
-            FightClubConverter loader = new FightClubConverter(filename);
-            loader.LoadSpells();
-            loader.Spells
+            SpellTextReader loader = new SpellTextReader();
+            var install = Windows.ApplicationModel.Package.Current.InstalledLocation;
+            var folder = await install.GetFolderAsync("data");
+            var grimoire = await loader.LoadFromFile(filename, folder);
+            grimoire
                 .Where(s => s.Name.ToLower().Contains(name.ToLower())).ToList()
                 .ForEach(s => this.output.WriteLine("{0} ({1}) {2} - {3}", s.Name, s.Level, s.School, s.Source));
             Assert.True(true);

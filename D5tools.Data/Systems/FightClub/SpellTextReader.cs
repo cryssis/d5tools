@@ -17,6 +17,7 @@ namespace D5tools.Data.Systems.FightClub
     using D5tools.Core.Extensions;
     using D5tools.Core.Spells;
     using D5tools.Services.Storage;
+    using Windows.ApplicationModel;
     using Windows.Storage;
 
     /// <summary>
@@ -60,6 +61,10 @@ namespace D5tools.Data.Systems.FightClub
 
                 case StorageStrategies.Temporary:
                     folder = ApplicationData.Current.TemporaryFolder;
+                    break;
+
+                case StorageStrategies.Package:
+                    folder = Package.Current.InstalledLocation;
                     break;
 
                 default:

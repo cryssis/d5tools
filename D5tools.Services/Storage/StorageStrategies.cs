@@ -24,6 +24,11 @@ namespace D5tools.Services.Storage
         /// <summary>
         /// Temporary storage
         /// </summary>
-        Temporary
+        Temporary,
+
+        /// <summary>
+        /// Shipped with the package
+        /// </summary>
+        Package
     }
 }

@@ -6,6 +6,8 @@
 
 namespace D5tools.Test
 {
+    using System;
+    using System.Collections.Generic;
     using System.Linq;
     using D5tools.Core.Characters;
     using D5tools.Core.Combat;
@@ -20,9 +22,9 @@ namespace D5tools.Test
     /// </summary>
     public class CombatEngineTest
     {
-        private const string MonsterFile = "data/creaturesFull.xml";
+        private const string MonsterFile = "creaturesFull.xml";
         private readonly ITestOutputHelper output;
-        private FightClubConverter bestiary;
+        private List<Creature> bestiary;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CombatEngineTest"/> class.
@@ -31,16 +33,19 @@ namespace D5tools.Test
         public CombatEngineTest(ITestOutputHelper output)
         {
             this.output = output;
-            this.bestiary = new FightClubConverter(MonsterFile);
-            this.bestiary.LoadCreatures();
         }
 
         /// <summary>
         /// Create an encounter
         /// </summary>
         [Fact]
-        public void CombatCreate()
+        public async void CombatCreate()
         {
+            CreatureTextReader loader = new CreatureTextReader();
+            var install = Windows.ApplicationModel.Package.Current.InstalledLocation;
+            var folder = await install.GetFolderAsync("data");
+            this.bestiary = await loader.LoadFromFile(MonsterFile, folder);
+
             var encounter = this.BuildEncounter();
             this.ShowEncounter(encounter);
 
@@ -72,8 +77,13 @@ namespace D5tools.Test
         [Theory]
         [InlineData(true)]
         [InlineData(false)]
-        public void SortInititative(bool grouped)
+        public async void SortInititative(bool grouped)
         {
+            CreatureTextReader loader = new CreatureTextReader();
+            var install = Windows.ApplicationModel.Package.Current.InstalledLocation;
+            var folder = await install.GetFolderAsync("data");
+            this.bestiary = await loader.LoadFromFile(MonsterFile, folder);
+
             var encounter = this.BuildEncounter();
             var party = this.BuildParty();
             var combat = new CombatEngine(encounter, party);
@@ -124,8 +134,13 @@ namespace D5tools.Test
         /// Turn and Round Movement
         /// </summary>
         [Fact]
-        public void CombatMoveTest()
+        public async void CombatMoveTest()
         {
+            CreatureTextReader loader = new CreatureTextReader();
+            var install = Windows.ApplicationModel.Package.Current.InstalledLocation;
+            var folder = await install.GetFolderAsync("data");
+            this.bestiary = await loader.LoadFromFile(MonsterFile, folder);
+
             var encounter = this.BuildEncounter();
             var party = this.BuildParty();
             var combat = new CombatEngine(encounter, party);
@@ -163,10 +178,10 @@ namespace D5tools.Test
             encounter.Adventure = "Test Adventure";
             encounter.Tags.Add("test");
 
-            var c1 = this.bestiary.Creatures.Where(c => c.Name == "Bandit").FirstOrDefault();
-            var c2 = this.bestiary.Creatures.Where(c => c.Name == "Goblin").FirstOrDefault();
-            var c3 = this.bestiary.Creatures.Where(c => c.Name == "Wolf").FirstOrDefault();
-            var c4 = this.bestiary.Creatures.Where(c => c.Name == "Goblin").FirstOrDefault();
+            var c1 = this.bestiary.Where(c => c.Name == "Bandit").FirstOrDefault();
+            var c2 = this.bestiary.Where(c => c.Name == "Goblin").FirstOrDefault();
+            var c3 = this.bestiary.Where(c => c.Name == "Wolf").FirstOrDefault();
+            var c4 = this.bestiary.Where(c => c.Name == "Goblin").FirstOrDefault();
 
             encounter.AddCreature(c1);
             encounter.AddCreature(c2);

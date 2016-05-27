@@ -6,6 +6,7 @@
 
 namespace D5tools.Test.Tests
 {
+    using System;
     using System.Linq;
     using D5tools.Core.Characters;
     using D5tools.Core.Encounters;
@@ -18,7 +19,7 @@ namespace D5tools.Test.Tests
     /// </summary>
     public class EncounterTest
     {
-        private const string MonsterFile = "data/creaturesFull.xml";
+        private const string MonsterFile = "creaturesFull.xml";
         private readonly ITestOutputHelper output;
 
         /// <summary>
@@ -38,10 +39,12 @@ namespace D5tools.Test.Tests
         [InlineData(PartySize.Small)]
         [InlineData(PartySize.Normal)]
         [InlineData(PartySize.Large)]
-        public void EncounterCreate(PartySize p)
+        public async void EncounterCreate(PartySize p)
         {
-            FightClubConverter bestiary = new FightClubConverter(MonsterFile);
-            bestiary.LoadCreatures();
+            CreatureTextReader loader = new CreatureTextReader();
+            var install = Windows.ApplicationModel.Package.Current.InstalledLocation;
+            var folder = await install.GetFolderAsync("data");
+            var bestiary = await loader.LoadFromFile(MonsterFile, folder);
 
             var e1 = new Encounter();
             e1.Name = "Encounter test";
@@ -49,10 +52,10 @@ namespace D5tools.Test.Tests
             e1.Adventure = "Test Adventure";
             e1.Tags.Add("test");
 
-            var c1 = bestiary.Creatures.Where(c => c.Name == "Bandit").FirstOrDefault();
-            var c2 = bestiary.Creatures.Where(c => c.Name == "Goblin").FirstOrDefault();
-            var c3 = bestiary.Creatures.Where(c => c.Name == "Wolf").FirstOrDefault();
-            var c4 = bestiary.Creatures.Where(c => c.Name == "Goblin").FirstOrDefault();
+            var c1 = bestiary.Where(c => c.Name == "Bandit").FirstOrDefault();
+            var c2 = bestiary.Where(c => c.Name == "Goblin").FirstOrDefault();
+            var c3 = bestiary.Where(c => c.Name == "Wolf").FirstOrDefault();
+            var c4 = bestiary.Where(c => c.Name == "Goblin").FirstOrDefault();
 
             e1.AddCreature(c1);
             e1.AddCreature(c2);
