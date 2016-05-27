@@ -24,6 +24,13 @@ namespace D5tools.Data.Systems
         /// <summary>
         /// Gets a colletion of data items stored on a file.
         /// </summary>
+        /// <param name="path">the path to the file</param>
+        /// <returns>A list of data items</returns>
+        Task<List<DataItem>> LoadFromFile(string path);
+
+        /// <summary>
+        /// Gets a colletion of data items stored on a file.
+        /// </summary>
         /// <param name="filename">the file name</param>
         /// <param name="folder">the storage folder</param>
         /// <returns>A list of data items</returns>

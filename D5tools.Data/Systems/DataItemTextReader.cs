@@ -28,6 +28,12 @@ namespace D5tools.Data.Systems
         private char[] mods = new char[] { '+', '-' };
 
         /// <inheritdoc/>
+        public virtual Task<List<DataItem>> LoadFromFile(string path)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc/>
         public virtual Task<List<DataItem>> LoadFromFile(string filename, StorageStrategies location = StorageStrategies.Local)
         {
             throw new NotImplementedException();

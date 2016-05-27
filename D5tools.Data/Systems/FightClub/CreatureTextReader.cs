@@ -75,6 +75,14 @@ namespace D5tools.Data.Systems.FightClub
         }
 
         /// <inheritdoc/>
+        public override async Task<List<Creature>> LoadFromFile(string path)
+        {
+            var file = await StorageFile.GetFileFromPathAsync(path);
+            var folder = await StorageFolder.GetFolderFromPathAsync(file.Path);
+            return await this.LoadFromFile(file.Name, folder);
+        }
+
+        /// <inheritdoc/>
         protected override List<Creature> ParseContent(Stream stream)
         {
             List<Creature> bestiary = new List<Creature>();

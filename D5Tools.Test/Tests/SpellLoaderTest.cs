@@ -8,6 +8,7 @@ namespace D5tools.Test
 {
     using System;
     using System.Linq;
+    using System.Threading.Tasks;
     using D5tools.Data.Systems.FightClub;
     using Xunit;
     using Xunit.Abstractions;
@@ -33,10 +34,11 @@ namespace D5tools.Test
         /// </summary>
         /// <param name="filename">The spell file</param>
         /// <param name="shouldPass">Whether the test should pass</param>
+        /// <returns>Nothing</returns>
         [Theory]
         [InlineData("spellsPHB.xml", false)]
         [InlineData("spellsFull.xml", true)]
-        public async void SpellLoading(string filename, bool shouldPass)
+        public async Task SpellLoading(string filename, bool shouldPass)
         {
             SpellTextReader loader = new SpellTextReader();
             var install = Windows.ApplicationModel.Package.Current.InstalledLocation;
@@ -51,12 +53,13 @@ namespace D5tools.Test
         /// </summary>
         /// <param name="filename">the spell file</param>
         /// <param name="name">the string to search in the spell name</param>
+        /// <returns>Nothing</returns>
         [Theory]
         [InlineData("spellsFull.xml", "Protection")]
         [InlineData("spellsFull.xml", "bolt")]
         [InlineData("spellsFull.xml", "wall")]
         [InlineData("spellsFull.xml", "blade")]
-        public async void SpellOutput(string filename, string name)
+        public async Task SpellOutput(string filename, string name)
         {
             SpellTextReader loader = new SpellTextReader();
             var install = Windows.ApplicationModel.Package.Current.InstalledLocation;

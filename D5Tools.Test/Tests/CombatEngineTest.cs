@@ -9,6 +9,7 @@ namespace D5tools.Test
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using D5tools.Core.Characters;
     using D5tools.Core.Combat;
     using D5tools.Core.Creatures;
@@ -38,8 +39,9 @@ namespace D5tools.Test
         /// <summary>
         /// Create an encounter
         /// </summary>
+        /// <returns>Nothing</returns>
         [Fact]
-        public async void CombatCreate()
+        public async Task CombatCreate()
         {
             CreatureTextReader loader = new CreatureTextReader();
             var install = Windows.ApplicationModel.Package.Current.InstalledLocation;
@@ -74,10 +76,11 @@ namespace D5tools.Test
         /// Sort by Initiative
         /// </summary>
         /// <param name="grouped">The creaters are grouped</param>
+        /// <returns>Nothing</returns>
         [Theory]
         [InlineData(true)]
         [InlineData(false)]
-        public async void SortInititative(bool grouped)
+        public async Task SortInititative(bool grouped)
         {
             CreatureTextReader loader = new CreatureTextReader();
             var install = Windows.ApplicationModel.Package.Current.InstalledLocation;
@@ -133,8 +136,9 @@ namespace D5tools.Test
         /// <summary>
         /// Turn and Round Movement
         /// </summary>
+        /// <returns>Nothing</returns>
         [Fact]
-        public async void CombatMoveTest()
+        public async Task CombatMoveTest()
         {
             CreatureTextReader loader = new CreatureTextReader();
             var install = Windows.ApplicationModel.Package.Current.InstalledLocation;

@@ -8,6 +8,7 @@ namespace D5tools.Test
 {
     using System;
     using System.Linq;
+    using System.Threading.Tasks;
     using D5tools.Data.Systems.FightClub;
     using Xunit;
     using Xunit.Abstractions;
@@ -33,10 +34,11 @@ namespace D5tools.Test
         /// </summary>
         /// <param name="filename">The creature file</param>
         /// <param name="shouldPass">Whether the test should pass</param>
+        /// <returns>Nothing</returns>
         [Theory]
         [InlineData("creaturesMM.xml", false)]
         [InlineData("creaturesFull.xml", true)]
-        public async void CreatureLoading(string filename, bool shouldPass)
+        public async Task CreatureLoading(string filename, bool shouldPass)
         {
             CreatureTextReader loader = new CreatureTextReader();
             var install = Windows.ApplicationModel.Package.Current.InstalledLocation;
@@ -51,11 +53,12 @@ namespace D5tools.Test
         /// </summary>
         /// <param name="filename">the spell file</param>
         /// <param name="name">the string to search in the creature name</param>
+        /// <returns>Nothing</returns>
         [Theory]
         [InlineData("creaturesFull.xml", "Crushing Wave")]
         [InlineData("creaturesFull.xml", "Priest")]
         [InlineData("creaturesFull.xml", "Giant")]
-        public async void CreatureOutput(string filename, string name)
+        public async Task CreatureOutput(string filename, string name)
         {
             CreatureTextReader loader = new CreatureTextReader();
             var install = Windows.ApplicationModel.Package.Current.InstalledLocation;

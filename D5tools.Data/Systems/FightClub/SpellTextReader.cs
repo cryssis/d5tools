@@ -75,6 +75,14 @@ namespace D5tools.Data.Systems.FightClub
         }
 
         /// <inheritdoc/>
+        public override async Task<List<Spell>> LoadFromFile(string path)
+        {
+            var file = await StorageFile.GetFileFromPathAsync(path);
+            var folder = await StorageFolder.GetFolderFromPathAsync(file.Path);
+            return await this.LoadFromFile(file.Name, folder);
+        }
+
+        /// <inheritdoc/>
         protected override List<Spell> ParseContent(Stream stream)
         {
             List<Spell> grimoire = new List<Spell>();

@@ -8,6 +8,7 @@ namespace D5tools.Test.Tests
 {
     using System;
     using System.Linq;
+    using System.Threading.Tasks;
     using D5tools.Core.Characters;
     using D5tools.Core.Encounters;
     using D5tools.Data.Systems.FightClub;
@@ -35,11 +36,12 @@ namespace D5tools.Test.Tests
         /// Create an encounter
         /// </summary>
         /// <param name="p">The party size</param>
+        /// <returns>Nothing</returns>
         [Theory]
         [InlineData(PartySize.Small)]
         [InlineData(PartySize.Normal)]
         [InlineData(PartySize.Large)]
-        public async void EncounterCreate(PartySize p)
+        public async Task EncounterCreate(PartySize p)
         {
             CreatureTextReader loader = new CreatureTextReader();
             var install = Windows.ApplicationModel.Package.Current.InstalledLocation;
