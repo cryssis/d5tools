@@ -110,10 +110,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IDataService.cs" />
-    <Compile Include="Imports\DataItemTextReader.cs" />
-    <Compile Include="Imports\FightClub\CreatureTextReader.cs" />
-    <Compile Include="Imports\FightClub\SpellTextReader.cs" />
-    <Compile Include="Imports\IDataItemTextReader.cs" />
+    <Compile Include="Systems\DataItemTextReader.cs" />
+    <Compile Include="Systems\FightClub\CreatureTextReader.cs" />
+    <Compile Include="Systems\FightClub\SpellTextReader.cs" />
+    <Compile Include="Systems\IDataItemTextReader.cs" />
     <Compile Include="LocalDataService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\D5tools.Data.rd.xml" />

@@ -84,7 +84,7 @@ namespace D5tools.Services.Storage
         }
 
         /// <inheritdoc/>
-        public async Task<bool> WriteFileAsync(string key, string content, StorageStrategies location = StorageStrategies.Local)
+        public async Task<bool> WriteFileAsync(string key, string content, StorageStrategies location = StorageStrategies.Local, CreationCollisionOption option = CreationCollisionOption.OpenIfExists)
         {
             var file = await this.CreateFileAsync(key, location, CreationCollisionOption.ReplaceExisting);
             await FileIO.WriteTextAsync(file, content);

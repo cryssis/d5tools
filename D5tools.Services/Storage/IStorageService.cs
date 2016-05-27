@@ -68,7 +68,8 @@ namespace D5tools.Services.Storage
         /// <param name="key">Path to the file in storage</param>
         /// <param name="content">Text content to be written</param>
         /// <param name="location">Location storage strategy</param>
+        /// <param name="option">File Collision option</param>
         /// <returns>Boolean: true if the file was written, false if not was written</returns>
-        Task<bool> WriteFileAsync(string key, string content, StorageStrategies location = StorageStrategies.Local);
+        Task<bool> WriteFileAsync(string key, string content, StorageStrategies location = StorageStrategies.Local, CreationCollisionOption option = CreationCollisionOption.OpenIfExists);
     }
 }

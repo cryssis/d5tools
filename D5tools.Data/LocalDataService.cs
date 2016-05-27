@@ -16,17 +16,34 @@ namespace D5tools.Data
     using D5tools.Services.Storage;
 
     /// <summary>
-    /// A local data service based on local database for caching
+    /// A local data service based on local data for caching
     /// </summary>
     public class LocalDataService : IDataService
     {
+        private const string MonsterFile = "data/bestiary.json";
+        private StorageService storage;
+        private List<Creature> bestiary;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LocalDataService"/> class.
+        /// </summary>
+        public LocalDataService()
+        {
+            this.storage = new StorageService();
+        }
+
         /// <inheritdoc/>
         public async Task<ObservableCollection<Creature>> GetCreaturesAsync()
         {
-            ObservableCollection<Creature> bestiary = new ObservableCollection<Creature>();
+            if (this.bestiary == null)
+            {
+                // TODO: Progress start
+                this.bestiary = await this.storage.ReadFileAsync<List<Creature>>(MonsterFile);
 
-            // TODO: Progress
-            return bestiary;
+                // TODO: Progress end
+            }
+
+            return new ObservableCollection<Creature>(this.bestiary);
         }
     }
 }

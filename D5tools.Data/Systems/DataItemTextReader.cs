@@ -4,7 +4,7 @@
 // See LICENSE file in the project root for full license information.
 // </copyright>
 
-namespace D5tools.Data.Imports
+namespace D5tools.Data.Systems
 {
     using System;
     using System.Collections.Generic;

@@ -98,6 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Tests\CombatEngineTest.cs" />
+    <Compile Include="Tests\DataServiceTest.cs" />
     <Compile Include="Tests\CreatureLoaderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\EncounterTest.cs" />
@@ -143,6 +144,10 @@
     <ProjectReference Include="..\D5tools.Core\D5tools.Core.csproj">
       <Project>{21ca96f3-1d19-484c-9379-20000f3db8da}</Project>
       <Name>D5tools.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\D5tools.Data\D5tools.Data.csproj">
+      <Project>{BA7C3360-503C-4DD2-B47E-72A0757EB46F}</Project>
+      <Name>D5tools.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\D5tools.Utils.FightClubConverter\FightClubConverter.csproj">
       <Project>{ddfdfc47-5ffe-4faf-89ef-9ff31388c471}</Project>
