@@ -6,6 +6,8 @@
 
 namespace D5tools.Core.Creatures
 {
+    using Newtonsoft.Json;
+
     /// <summary>
     /// Creature ability score
     /// </summary>
@@ -38,16 +40,25 @@ namespace D5tools.Core.Creatures
         /// <summary>
         /// Gets or sets the Ability Name
         /// </summary>
-        public string Name { get; set; }
+        public string Name
+        {
+            get { return this.name; }
+            set { this.name = value; }
+        }
 
         /// <summary>
         /// Gets or sets the Ability score
         /// </summary>
-        public int Score { get; set; }
+        public int Score
+        {
+            get { return this.score; }
+            set { this.score = value; }
+        }
 
         /// <summary>
         /// Gets the Ability modifier
         /// </summary>
+        [JsonIgnore]
         public int Mod
         {
             get

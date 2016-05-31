@@ -38,11 +38,19 @@ namespace D5tools.Core.Creatures
         /// <summary>
         /// Gets or sets the Skill Name
         /// </summary>
-        public string Name { get; set; }
+        public string Name
+        {
+            get { return this.name; }
+            set { this.name = value; }
+        }
 
         /// <summary>
         /// Gets or sets the Skill modifier
         /// </summary>
-        public int Mod { get; set; }
+        public int Mod
+        {
+            get { return this.mod; }
+            set { this.mod = value; }
+        }
     }
 }

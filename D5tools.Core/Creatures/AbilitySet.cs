@@ -55,15 +55,8 @@ namespace D5tools.Core.Creatures
         /// </summary>
         public Ability Str
         {
-            get
-            {
-                return this.strength;
-            }
-
-            set
-            {
-                this.strength = value;
-            }
+            get { return this.strength; }
+            set { this.strength = value; }
         }
 
         /// <summary>
@@ -71,15 +64,8 @@ namespace D5tools.Core.Creatures
         /// </summary>
         public Ability Dex
         {
-            get
-            {
-                return this.dexterity;
-            }
-
-            set
-            {
-                this.dexterity = value;
-            }
+            get { return this.dexterity; }
+            set { this.dexterity = value; }
         }
 
         /// <summary>
@@ -87,15 +73,8 @@ namespace D5tools.Core.Creatures
         /// </summary>
         public Ability Con
         {
-            get
-            {
-                return this.constitution;
-            }
-
-            set
-            {
-                this.constitution = value;
-            }
+            get { return this.constitution; }
+            set { this.constitution = value; }
         }
 
         /// <summary>
@@ -103,15 +82,8 @@ namespace D5tools.Core.Creatures
         /// </summary>
         public Ability Int
         {
-            get
-            {
-                return this.intelligence;
-            }
-
-            set
-            {
-                this.intelligence = value;
-            }
+            get { return this.intelligence; }
+            set { this.intelligence = value; }
         }
 
         /// <summary>
@@ -119,15 +91,8 @@ namespace D5tools.Core.Creatures
         /// </summary>
         public Ability Wis
         {
-            get
-            {
-                return this.wisdom;
-            }
-
-            set
-            {
-                this.wisdom = value;
-            }
+            get { return this.wisdom; }
+            set { this.wisdom = value; }
         }
 
         /// <summary>
@@ -135,15 +100,8 @@ namespace D5tools.Core.Creatures
         /// </summary>
         public Ability Cha
         {
-            get
-            {
-                return this.charisma;
-            }
-
-            set
-            {
-                this.charisma = value;
-            }
+            get { return this.charisma; }
+            set { this.charisma = value; }
         }
     }
 }

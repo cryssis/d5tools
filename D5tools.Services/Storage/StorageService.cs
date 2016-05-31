@@ -12,12 +12,23 @@ namespace D5tools.Services.Storage
     using System.Text;
     using System.Threading.Tasks;
     using Newtonsoft.Json;
+    using Windows.Storage;
 
     /// <summary>
     /// A class for storing objects in json format.
     /// </summary>
-    public class StorageService : FileService
+    public class StorageService : IStorageService
     {
+        private IStorageService service;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StorageService"/> class.
+        /// </summary>
+        public StorageService()
+        {
+            this.service = new FileService();
+        }
+
         /// <summary>
         /// Serializes an object and write to file in specified strategy
         /// </summary>
@@ -34,7 +45,7 @@ namespace D5tools.Services.Storage
             Windows.Storage.CreationCollisionOption option = Windows.Storage.CreationCollisionOption.ReplaceExisting)
         {
             var serializedValue = this.Serialize(value);
-            return await this.WriteFileAsync(key, serializedValue, location);
+            return await this.service.WriteFileAsync(key, serializedValue, location);
         }
 
         /// <summary>
@@ -48,7 +59,7 @@ namespace D5tools.Services.Storage
         {
             try
             {
-                var content = await this.ReadFileAsync(key, location);
+                var content = await this.service.ReadFileAsync(key, location);
                 if (content == null)
                 {
                     return default(DataItem);
@@ -63,11 +74,53 @@ namespace D5tools.Services.Storage
             }
         }
 
+        /// <inheritdoc/>
+        public async Task<bool> FileExistsAsync(string key, StorageStrategies location = StorageStrategies.Local)
+        {
+            return await this.service.FileExistsAsync(key, location);
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> FileExistsAsync(string key, StorageFolder folder)
+        {
+            return await this.service.FileExistsAsync(key, folder);
+        }
+
+        /// <inheritdoc/>
+        public string GetFilePath(string key, StorageStrategies location = StorageStrategies.Local)
+        {
+            return this.service.GetFilePath(key, location);
+        }
+
+        /// <inheritdoc/>
+        public string GetFilePath(string key, StorageFolder folder)
+        {
+            return this.service.GetFilePath(key, folder);
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> DeleteFileAsync(string key, StorageStrategies location = StorageStrategies.Local)
+        {
+            return await this.service.DeleteFileAsync(key, location);
+        }
+
+        /// <inheritdoc/>
+        public async Task<string> ReadFileAsync(string key, StorageStrategies location = StorageStrategies.Local)
+        {
+            return await this.service.ReadFileAsync(key, location);
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> WriteFileAsync(string key, string content, StorageStrategies location = StorageStrategies.Local, CreationCollisionOption option = CreationCollisionOption.OpenIfExists)
+        {
+            return await this.service.WriteFileAsync(key, content, location, option);
+        }
+
         private string Serialize<DataItem>(DataItem item) =>
             JsonConvert.SerializeObject(
                 item,
-                Formatting.None,
-                new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Objects, TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple });
+                Formatting.Indented,
+                new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.None, TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple });
 
         private DataItem Deserialize<DataItem>(string json) =>
             JsonConvert.DeserializeObject<DataItem>(json);

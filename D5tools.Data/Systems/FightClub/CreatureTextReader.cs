@@ -78,13 +78,15 @@ namespace D5tools.Data.Systems.FightClub
         public override async Task<List<Creature>> LoadFromFile(string path)
         {
             var file = await StorageFile.GetFileFromPathAsync(path);
-            var folder = await StorageFolder.GetFolderFromPathAsync(file.Path);
+            var folder = await StorageFolder.GetFolderFromPathAsync(Path.GetDirectoryName(path));
             return await this.LoadFromFile(file.Name, folder);
         }
 
         /// <inheritdoc/>
         protected override List<Creature> ParseContent(Stream stream)
         {
+            int id = 0;
+
             List<Creature> bestiary = new List<Creature>();
 
             XDocument doc = XDocument.Load(stream);
@@ -237,6 +239,7 @@ namespace D5tools.Data.Systems.FightClub
                     }
                 }
 
+                c.Id = ++id;
                 bestiary.Add(c);
             }
 

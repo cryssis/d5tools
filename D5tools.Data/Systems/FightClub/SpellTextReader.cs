@@ -78,7 +78,7 @@ namespace D5tools.Data.Systems.FightClub
         public override async Task<List<Spell>> LoadFromFile(string path)
         {
             var file = await StorageFile.GetFileFromPathAsync(path);
-            var folder = await StorageFolder.GetFolderFromPathAsync(file.Path);
+            var folder = await StorageFolder.GetFolderFromPathAsync(Path.GetDirectoryName(path));
             return await this.LoadFromFile(file.Name, folder);
         }
 

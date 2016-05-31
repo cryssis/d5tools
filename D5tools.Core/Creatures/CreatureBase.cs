@@ -7,6 +7,7 @@
 namespace D5tools.Core.Creatures
 {
     using System.Collections.Generic;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// A Base Creature
@@ -187,6 +188,7 @@ namespace D5tools.Core.Creatures
         /// <summary>
         /// Gets creature Strength
         /// </summary>
+        [JsonIgnore]
         public Ability Str
         {
             get { return this.abilities.Str; }
@@ -195,6 +197,7 @@ namespace D5tools.Core.Creatures
         /// <summary>
         /// Gets creature Dexterity
         /// </summary>
+        [JsonIgnore]
         public Ability Dex
         {
             get { return this.abilities.Dex; }
@@ -203,6 +206,7 @@ namespace D5tools.Core.Creatures
         /// <summary>
         /// Gets creature Constitution
         /// </summary>
+        [JsonIgnore]
         public Ability Con
         {
             get { return this.abilities.Con; }
@@ -211,6 +215,7 @@ namespace D5tools.Core.Creatures
         /// <summary>
         /// Gets creature Intelligence
         /// </summary>
+        [JsonIgnore]
         public Ability Int
         {
             get { return this.abilities.Int; }
@@ -219,6 +224,7 @@ namespace D5tools.Core.Creatures
         /// <summary>
         /// Gets creature Wisdom
         /// </summary>
+        [JsonIgnore]
         public Ability Wis
         {
             get { return this.abilities.Wis; }
@@ -227,6 +233,7 @@ namespace D5tools.Core.Creatures
         /// <summary>
         /// Gets creature Charisma
         /// </summary>
+        [JsonIgnore]
         public Ability Cha
         {
             get { return this.abilities.Cha; }
