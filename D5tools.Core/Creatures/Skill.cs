@@ -17,6 +17,15 @@ namespace D5tools.Core.Creatures
         /// <summary>
         /// Initializes a new instance of the <see cref="Skill"/> class.
         /// </summary>
+        public Skill()
+        {
+            this.name = string.Empty;
+            this.mod = 0;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Skill"/> class.
+        /// </summary>
         /// <param name="name">The skill name</param>
         public Skill(string name)
         {

@@ -10,66 +10,28 @@ namespace D5tools.Services.Storage
     using Windows.Storage;
 
     /// <summary>
-    /// Defines a Storage Service Interface
+    /// A Storage service interface
     /// </summary>
     public interface IStorageService
     {
         /// <summary>
-        /// Returns if a file is found in the specified storage strategy
+        /// Reads and deserializes a file into specified type DataItem
         /// </summary>
-        /// <param name="key">Path of the file in storage</param>
-        /// <param name="location">Location storage strategy</param>
-        /// <returns>Boolean: true if found, false if not found</returns>
-        Task<bool> FileExistsAsync(string key, StorageStrategies location = StorageStrategies.Local);
-
-        /// <summary>
-        /// Return if a file is found in the specified folder
-        /// </summary>
-        /// <param name="key">Name of the file in the folder</param>
-        /// <param name="folder">The storage folder</param>
-        /// <returns>Boolean: true if found, false if not found</returns>
-        Task<bool> FileExistsAsync(string key, StorageFolder folder);
-
-        /// <summary>
-        /// Return the full file path in the specified storage strategy
-        /// </summary>
-        /// <param name="key">The path of the file in storage</param>
-        /// <param name="location">Location storage strategy</param>
-        /// <returns>The full file path for the file</returns>
-        string GetFilePath(string key, StorageStrategies location = StorageStrategies.Local);
-
-        /// <summary>
-        /// Return the full file path in the specified folder
-        /// </summary>
-        /// <param name="key">The path of the file in storage</param>
-        /// <param name="folder">The storage folder</param>
-        /// <returns>The full file path for the file</returns>
-        string GetFilePath(string key, StorageFolder folder);
-
-        /// <summary>
-        /// Deletes a file in the specified storage strategy
-        /// </summary>
-        /// <param name="key">Path of the file in storage</param>
-        /// <param name="location">Location storage strategy</param>
-        /// <returns>Boolean: true if the file was deleted, false if not was deleted</returns>
-        Task<bool> DeleteFileAsync(string key, StorageStrategies location = StorageStrategies.Local);
-
-        /// <summary>
-        /// Reads a file from specified storage strategy
-        /// </summary>
+        /// <typeparam name="DataItem">Specified type into which to deserialize file content</typeparam>
         /// <param name="key">Path to the file in storage</param>
         /// <param name="location">Location storage strategy</param>
-        /// <returns>The text content of the file</returns>
-        Task<string> ReadFileAsync(string key, StorageStrategies location = StorageStrategies.Local);
+        /// <returns>Specified type DataItem</returns>
+        Task<DataItem> LoadFileAsync<DataItem>(string key, StorageStrategies location = StorageStrategies.Local);
 
         /// <summary>
-        /// Write to file in specified storage strategy
+        /// Serializes an object and write to file in specified strategy
         /// </summary>
+        /// <typeparam name="DataItem">Specified type of object to serialize</typeparam>
         /// <param name="key">Path to the file in storage</param>
-        /// <param name="content">Text content to be written</param>
+        /// <param name="value">Instance of object to be serialized and written</param>
         /// <param name="location">Location storage strategy</param>
-        /// <param name="option">File Collision option</param>
-        /// <returns>Boolean: true if the file was written, false if not was written</returns>
-        Task<bool> WriteFileAsync(string key, string content, StorageStrategies location = StorageStrategies.Local, CreationCollisionOption option = CreationCollisionOption.OpenIfExists);
+        /// <param name="option">Collision option</param>
+        /// <returns>True if the file was created</returns>
+        Task<bool> SaveFileAsync<DataItem>(string key, DataItem value, StorageStrategies location = StorageStrategies.Local, CreationCollisionOption option = CreationCollisionOption.ReplaceExisting);
     }
 }

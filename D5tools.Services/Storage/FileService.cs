@@ -16,7 +16,7 @@ namespace D5tools.Services.Storage
     /// <summary>
     /// A class for app file storage
     /// </summary>
-    public class FileService : IStorageService
+    public class FileService : IFileService
     {
         /// <inheritdoc/>
         public async Task<bool> FileExistsAsync(string key, StorageStrategies location = StorageStrategies.Local) =>
@@ -25,34 +25,6 @@ namespace D5tools.Services.Storage
         /// <inheritdoc/>
         public async Task<bool> FileExistsAsync(string key, StorageFolder folder) =>
             (await this.GetIfFileExistsAsync(key, folder)) != null;
-
-        /// <inheritdoc/>
-        public string GetFilePath(string key, StorageStrategies location = StorageStrategies.Local)
-        {
-            switch (location)
-            {
-                case StorageStrategies.Local:
-                    return Path.Combine(ApplicationData.Current.LocalFolder.Path, key);
-
-                case StorageStrategies.Roaming:
-                    return Path.Combine(ApplicationData.Current.RoamingFolder.Path, key);
-
-                case StorageStrategies.Temporary:
-                    return Path.Combine(ApplicationData.Current.TemporaryFolder.Path, key);
-
-                case StorageStrategies.Package:
-                    return Path.Combine(Package.Current.InstalledLocation.Path, key);
-
-                default:
-                    throw new NotSupportedException(location.ToString());
-            }
-        }
-
-        /// <inheritdoc/>
-        public string GetFilePath(string key, StorageFolder folder)
-        {
-            return Path.Combine(folder.Path, key);
-        }
 
         /// <inheritdoc/>
         public async Task<bool> DeleteFileAsync(string key, StorageStrategies location = StorageStrategies.Local)
@@ -96,55 +68,65 @@ namespace D5tools.Services.Storage
 
         private async Task<StorageFile> CreateFileAsync(string key, StorageStrategies location = StorageStrategies.Local, CreationCollisionOption option = CreationCollisionOption.OpenIfExists)
         {
+            StorageFolder folder;
             switch (location)
             {
                 case StorageStrategies.Local:
-                    return await ApplicationData.Current.LocalFolder.CreateFileAsync(key, option);
+                    folder = ApplicationData.Current.LocalFolder;
+                    break;
 
                 case StorageStrategies.Roaming:
-                    return await ApplicationData.Current.RoamingFolder.CreateFileAsync(key, option);
+                    folder = ApplicationData.Current.RoamingFolder;
+                    break;
 
                 case StorageStrategies.Temporary:
-                    return await ApplicationData.Current.TemporaryFolder.CreateFileAsync(key, option);
+                    folder = ApplicationData.Current.TemporaryFolder;
+                    break;
 
                 case StorageStrategies.Package:
-                    return await Package.Current.InstalledLocation.CreateFileAsync(key, option);
+                    folder = Package.Current.InstalledLocation;
+                    break;
 
                 default:
                     throw new NotSupportedException(location.ToString());
             }
+
+            return await folder.CreateFileAsync(key, option);
         }
 
         private async Task<StorageFile> GetIfFileExistsAsync(string key, StorageStrategies location = StorageStrategies.Local, CreationCollisionOption option = CreationCollisionOption.FailIfExists)
         {
             StorageFile result;
+
             try
             {
+                StorageFolder folder;
                 switch (location)
                 {
                     case StorageStrategies.Local:
-                        result = await ApplicationData.Current.LocalFolder.GetFileAsync(key);
+                        folder = ApplicationData.Current.LocalFolder;
                         break;
 
                     case StorageStrategies.Roaming:
-                        result = await ApplicationData.Current.RoamingFolder.GetFileAsync(key);
+                        folder = ApplicationData.Current.RoamingFolder;
                         break;
 
                     case StorageStrategies.Temporary:
-                        result = await ApplicationData.Current.TemporaryFolder.GetFileAsync(key);
+                        folder = ApplicationData.Current.TemporaryFolder;
                         break;
 
                     case StorageStrategies.Package:
-                        result = await Package.Current.InstalledLocation.GetFileAsync(key);
+                        folder = Package.Current.InstalledLocation;
                         break;
 
                     default:
                         throw new NotSupportedException(location.ToString());
                 }
+
+                result = await this.GetIfFileExistsAsync(key, folder, option);
             }
-            catch (FileNotFoundException)
+            catch (Exception)
             {
-                Debug.WriteLine("GetIfFileExistsAsync:FileNotFoundException");
                 return null;
             }
 

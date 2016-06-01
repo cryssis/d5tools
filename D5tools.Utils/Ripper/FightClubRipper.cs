@@ -45,7 +45,7 @@ namespace D5tools.Utils.Ripper
         {
             CreatureTextReader reader = new CreatureTextReader();
             this.bestiary = await reader.LoadFromFile(filename);
-            var result = await this.storage.WriteFileAsync<List<Creature>>("bestiary.json", this.bestiary);
+            var result = await this.storage.SaveFileAsync<List<Creature>>("bestiary.json", this.bestiary);
             return result;
         }
 
@@ -58,7 +58,7 @@ namespace D5tools.Utils.Ripper
         {
             SpellTextReader reader = new SpellTextReader();
             this.grimoire = await reader.LoadFromFile(filename);
-            var result = await this.storage.WriteFileAsync<List<Spell>>("spells.json", this.grimoire);
+            var result = await this.storage.SaveFileAsync<List<Spell>>("grimoire.json", this.grimoire);
             return result;
         }
     }

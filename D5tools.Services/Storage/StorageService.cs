@@ -19,7 +19,7 @@ namespace D5tools.Services.Storage
     /// </summary>
     public class StorageService : IStorageService
     {
-        private IStorageService service;
+        private IFileService service;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StorageService"/> class.
@@ -29,16 +29,8 @@ namespace D5tools.Services.Storage
             this.service = new FileService();
         }
 
-        /// <summary>
-        /// Serializes an object and write to file in specified strategy
-        /// </summary>
-        /// <typeparam name="DataItem">Specified type of object to serialize</typeparam>
-        /// <param name="key">Path to the file in storage</param>
-        /// <param name="value">Instance of object to be serialized and written</param>
-        /// <param name="location">Location storage strategy</param>
-        /// <param name="option">Collision option</param>
-        /// <returns>True if the file was created</returns>
-        public async Task<bool> WriteFileAsync<DataItem>(
+        /// <inheritdoc/>
+        public async Task<bool> SaveFileAsync<DataItem>(
             string key,
             DataItem value,
             StorageStrategies location = StorageStrategies.Local,
@@ -48,14 +40,8 @@ namespace D5tools.Services.Storage
             return await this.service.WriteFileAsync(key, serializedValue, location);
         }
 
-        /// <summary>
-        /// Reads and deserializes a file into specified type DataItem
-        /// </summary>
-        /// <typeparam name="DataItem">Specified type into which to deserialize file content</typeparam>
-        /// <param name="key">Path to the file in storage</param>
-        /// <param name="location">Location storage strategy</param>
-        /// <returns>Specified type DataItem</returns>
-        public async Task<DataItem> ReadFileAsync<DataItem>(string key, StorageStrategies location = StorageStrategies.Local)
+        /// <inheritdoc/>
+        public async Task<DataItem> LoadFileAsync<DataItem>(string key, StorageStrategies location = StorageStrategies.Local)
         {
             try
             {
@@ -72,48 +58,6 @@ namespace D5tools.Services.Storage
             {
                 throw;
             }
-        }
-
-        /// <inheritdoc/>
-        public async Task<bool> FileExistsAsync(string key, StorageStrategies location = StorageStrategies.Local)
-        {
-            return await this.service.FileExistsAsync(key, location);
-        }
-
-        /// <inheritdoc/>
-        public async Task<bool> FileExistsAsync(string key, StorageFolder folder)
-        {
-            return await this.service.FileExistsAsync(key, folder);
-        }
-
-        /// <inheritdoc/>
-        public string GetFilePath(string key, StorageStrategies location = StorageStrategies.Local)
-        {
-            return this.service.GetFilePath(key, location);
-        }
-
-        /// <inheritdoc/>
-        public string GetFilePath(string key, StorageFolder folder)
-        {
-            return this.service.GetFilePath(key, folder);
-        }
-
-        /// <inheritdoc/>
-        public async Task<bool> DeleteFileAsync(string key, StorageStrategies location = StorageStrategies.Local)
-        {
-            return await this.service.DeleteFileAsync(key, location);
-        }
-
-        /// <inheritdoc/>
-        public async Task<string> ReadFileAsync(string key, StorageStrategies location = StorageStrategies.Local)
-        {
-            return await this.service.ReadFileAsync(key, location);
-        }
-
-        /// <inheritdoc/>
-        public async Task<bool> WriteFileAsync(string key, string content, StorageStrategies location = StorageStrategies.Local, CreationCollisionOption option = CreationCollisionOption.OpenIfExists)
-        {
-            return await this.service.WriteFileAsync(key, content, location, option);
         }
 
         private string Serialize<DataItem>(DataItem item) =>

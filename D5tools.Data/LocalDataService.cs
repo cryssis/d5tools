@@ -38,7 +38,7 @@ namespace D5tools.Data
             if (this.bestiary == null)
             {
                 // TODO: Progress start
-                this.bestiary = await this.storage.ReadFileAsync<List<Creature>>(MonsterFile);
+                this.bestiary = await this.storage.LoadFileAsync<List<Creature>>(MonsterFile);
 
                 // TODO: Progress end
             }

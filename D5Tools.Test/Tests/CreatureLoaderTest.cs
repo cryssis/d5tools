@@ -7,8 +7,10 @@
 namespace D5tools.Test
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using D5tools.Core.Creatures;
     using D5tools.Data.Systems.FightClub;
     using Xunit;
     using Xunit.Abstractions;
