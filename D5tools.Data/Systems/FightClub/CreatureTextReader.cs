@@ -288,27 +288,27 @@ namespace D5tools.Data.Systems.FightClub
                 switch (st)
                 {
                     case "Str":
-                        saves.Str.Mod = mod;
+                        saves.Savings[Stats.Strength] = mod;
                         break;
 
                     case "Dex":
-                        saves.Dex.Mod = mod;
+                        saves.Savings[Stats.Dexterity] = mod;
                         break;
 
                     case "Con":
-                        saves.Con.Mod = mod;
+                        saves.Savings[Stats.Constitution] = mod;
                         break;
 
                     case "Int":
-                        saves.Int.Mod = mod;
+                        saves.Savings[Stats.Intelligence] = mod;
                         break;
 
                     case "Wis":
-                        saves.Wis.Mod = mod;
+                        saves.Savings[Stats.Wisdom] = mod;
                         break;
 
                     case "Cha":
-                        saves.Cha.Mod = mod;
+                        saves.Savings[Stats.Charisma] = mod;
                         break;
                 }
             }

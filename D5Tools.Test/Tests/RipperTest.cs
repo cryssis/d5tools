@@ -7,14 +7,9 @@
 namespace D5tools.Test.Tests
 {
     using System;
-    using System.Collections.Generic;
     using System.IO;
-    using System.Linq;
     using System.Threading.Tasks;
-    using D5tools.Core.Creatures;
-    using D5tools.Core.Spells;
     using D5tools.Utils.Ripper;
-    using Windows.Storage;
     using Xunit;
     using Xunit.Abstractions;
 

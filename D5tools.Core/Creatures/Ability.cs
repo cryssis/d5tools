@@ -13,37 +13,23 @@ namespace D5tools.Core.Creatures
     /// </summary>
     public class Ability
     {
-        private string name;
         private int score;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Ability"/> class.
         /// </summary>
-        /// <param name="name">The ability name</param>
-        public Ability(string name)
+        public Ability()
         {
-            this.name = name;
             this.score = 10;
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Ability"/> class.
         /// </summary>
-        /// <param name="name">The ability name</param>
         /// <param name="score">The ability score</param>
-        public Ability(string name, int score)
+        public Ability(int score)
         {
-            this.name = name;
             this.score = score;
-        }
-
-        /// <summary>
-        /// Gets or sets the Ability Name
-        /// </summary>
-        public string Name
-        {
-            get { return this.name; }
-            set { this.name = value; }
         }
 
         /// <summary>
