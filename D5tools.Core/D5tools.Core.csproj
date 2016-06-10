@@ -124,7 +124,8 @@
     <Compile Include="Creatures\Damage.cs" />
     <Compile Include="Creatures\DamageType.cs" />
     <Compile Include="Creatures\SavingThrowSet.cs" />
-    <Compile Include="Creatures\Skill.cs" />
+    <Compile Include="Creatures\Skills.cs" />
+    <Compile Include="Creatures\SkillSet.cs" />
     <Compile Include="Creatures\Stats.cs" />
     <Compile Include="Spells\Spell.cs" />
     <Compile Include="Creatures\Trait.cs" />

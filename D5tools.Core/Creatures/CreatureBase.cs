@@ -34,7 +34,7 @@ namespace D5tools.Core.Creatures
 
         private AbilitySet abilities;
         private SavingThrowSet savingThrows;
-        private List<Skill> skills;
+        private SkillSet skills;
 
         private string senses;
         private string languages;
@@ -66,7 +66,7 @@ namespace D5tools.Core.Creatures
             this.speed = string.Empty;
             this.abilities = new AbilitySet();
             this.savingThrows = new SavingThrowSet();
-            this.skills = new List<Skill>();
+            this.skills = new SkillSet();
             this.senses = string.Empty;
             this.languages = string.Empty;
             this.traits = new List<Trait>();
@@ -251,7 +251,7 @@ namespace D5tools.Core.Creatures
         /// <summary>
         /// Gets or sets creature skills
         /// </summary>
-        public List<Skill> Skills
+        public SkillSet Skills
         {
             get { return this.skills; }
             set { this.skills = value; }

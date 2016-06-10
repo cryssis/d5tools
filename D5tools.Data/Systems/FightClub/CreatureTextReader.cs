@@ -316,9 +316,9 @@ namespace D5tools.Data.Systems.FightClub
             return saves;
         }
 
-        private List<Skill> ParseSkills(string tag)
+        private SkillSet ParseSkills(string tag)
         {
-            List<Skill> skills = new List<Skill>();
+            SkillSet skills = new SkillSet();
             var list = this.ParseList(tag);
 
             foreach (var t in list)
@@ -326,8 +326,8 @@ namespace D5tools.Data.Systems.FightClub
                 var parts = this.ParseMods(t);
                 var name = parts[0];
                 var mod = int.Parse(parts[1]);
-                Skill s = new Skill(name, mod);
-                skills.Add(s);
+
+                skills.Skills.Add(skills.ByName(name), mod);
             }
 
             return skills;
