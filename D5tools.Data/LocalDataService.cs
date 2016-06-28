@@ -20,7 +20,7 @@ namespace D5tools.Data
     /// </summary>
     public class LocalDataService : IDataService
     {
-        private const string MonsterFile = "data/bestiary.json";
+        private const string MonsterFile = "bestiary.json";
         private StorageService storage;
         private List<Creature> bestiary;
 
