@@ -6,11 +6,8 @@
 
 namespace D5tools.Data
 {
-    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
     using D5tools.Core.Creatures;
     using D5tools.Services.Storage;

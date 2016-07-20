@@ -11,10 +11,8 @@ namespace D5tools.Data.Systems.FightClub
     using System.Diagnostics;
     using System.IO;
     using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
     using System.Xml.Linq;
-    using D5tools.Core.Extensions;
     using D5tools.Core.Spells;
     using D5tools.Services.Storage;
     using Windows.ApplicationModel;

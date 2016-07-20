@@ -6,16 +6,12 @@
 
 namespace D5tools.Utils.Ripper
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
     using D5tools.Core.Creatures;
     using D5tools.Core.Spells;
     using D5tools.Data.Systems.FightClub;
     using D5tools.Services.Storage;
-    using Newtonsoft.Json;
 
     /// <summary>
     /// A class which rips creature data from a FightClub XML format file

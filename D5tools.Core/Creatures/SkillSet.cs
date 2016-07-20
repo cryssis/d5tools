@@ -6,11 +6,7 @@
 
 namespace D5tools.Core.Creatures
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     /// <summary>
     /// Creature skill set

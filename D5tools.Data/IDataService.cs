@@ -6,13 +6,9 @@
 
 namespace D5tools.Data
 {
-    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Threading.Tasks;
-    using D5tools.Core.Characters;
     using D5tools.Core.Creatures;
-    using D5tools.Core.Encounters;
-    using D5tools.Core.Spells;
 
     /// <summary>
     /// A data service interface

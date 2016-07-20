@@ -11,7 +11,6 @@ namespace D5tools.Data.Systems.FightClub
     using System.Diagnostics;
     using System.IO;
     using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
     using System.Xml.Linq;
     using D5tools.Core.Creatures;

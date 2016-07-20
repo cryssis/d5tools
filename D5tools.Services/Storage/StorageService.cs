@@ -7,12 +7,8 @@
 namespace D5tools.Services.Storage
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
     using Newtonsoft.Json;
-    using Windows.Storage;
 
     /// <summary>
     /// A class for storing objects in json format.

@@ -6,7 +6,6 @@
 
 namespace D5tools.Test
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;

@@ -10,7 +10,6 @@ namespace D5tools.Data.Systems
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
     using D5tools.Services.Storage;
     using Windows.Storage;
