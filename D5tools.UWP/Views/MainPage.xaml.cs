@@ -6,6 +6,7 @@
 
 namespace D5tools.UWP.Views
 {
+    using ViewModels;
     using Windows.UI.Xaml.Controls;
 
     /// <summary>
@@ -21,5 +22,10 @@ namespace D5tools.UWP.Views
             this.InitializeComponent();
             this.NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Enabled;
         }
+
+        /// <summary>
+        /// Gets the strongly-type view model to enable x:bind.
+        /// </summary>
+        public MainPageViewModel ViewModel => this.DataContext as MainPageViewModel;
     }
 }

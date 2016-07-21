@@ -2,10 +2,15 @@
                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                      xmlns:common="using:Template10.Common"
-                     RequestedTheme="Light">
+                     RequestedTheme="Light"
+                     xmlns:vm="using:D5tools.UWP.ViewModels">
 
     <Application.Resources>
-        <ResourceDictionary Source="Styles\Custom.xaml" />
+        <ResourceDictionary>
+            <vm:ViewModelLocator x:Key="Locator" />
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles\Custom.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
-
 </common:BootStrapper>

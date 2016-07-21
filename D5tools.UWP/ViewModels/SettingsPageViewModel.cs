@@ -6,10 +6,7 @@
 
 namespace D5tools.UWP.ViewModels
 {
-    using System;
-    using System.Threading.Tasks;
     using Template10.Mvvm;
-    using Windows.UI.Xaml;
 
     /// <summary>
     /// A ViewModel for the SettingsPage View
@@ -19,11 +16,11 @@ namespace D5tools.UWP.ViewModels
         /// <summary>
         /// Gets the SettingsPart View Model
         /// </summary>
-        public SettingsPartViewModel SettingsPartViewModel { get; } = new SettingsPartViewModel();
+        public SettingsGeneralPartViewModel SettingsPartViewModel { get; } = new SettingsGeneralPartViewModel();
 
         /// <summary>
         /// Gets the AboutPart View Model
         /// </summary>
-        public AboutPartViewModel AboutPartViewModel { get; } = new AboutPartViewModel();
+        public SettingsAboutPartViewModel AboutPartViewModel { get; } = new SettingsAboutPartViewModel();
     }
 }

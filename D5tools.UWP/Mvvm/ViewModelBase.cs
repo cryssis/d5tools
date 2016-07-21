@@ -4,13 +4,13 @@
 // See LICENSE file in the project root for full license information.
 // </copyright>
 
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Windows.UI.Xaml.Navigation;
-
 namespace D5tools.UWP.Mvvm
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using Newtonsoft.Json;
+    using Windows.UI.Xaml.Navigation;
+
     /// <summary>
     /// A ViewModelBase derived from GalaSoft ViewModelBase and using the NavigationService from Template 10
     /// </summary>

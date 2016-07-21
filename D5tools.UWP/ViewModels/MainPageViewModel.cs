@@ -18,26 +18,11 @@ namespace D5tools.UWP.ViewModels
     /// </summary>
     public class MainPageViewModel : ViewModelBase
     {
-        private string value = "Gas";
-
         /// <summary>
         /// Initializes a new instance of the <see cref="MainPageViewModel"/> class.
         /// </summary>
         public MainPageViewModel()
         {
-            if (Windows.ApplicationModel.DesignMode.DesignModeEnabled)
-            {
-                this.Value = "Designtime value";
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the Value to be passed to the DetailPage View
-        /// </summary>
-        public string Value
-        {
-            get { return this.value; }
-            set { this.Set(ref this.value, value); }
         }
 
         /// <inheritdoc/>
@@ -45,7 +30,8 @@ namespace D5tools.UWP.ViewModels
         {
             if (suspensionState.Any())
             {
-                this.Value = suspensionState[nameof(this.Value)]?.ToString();
+                // Recovery from suspensionState
+                // this.Value = suspensionState[nameof(this.Value)]?.ToString();
             }
 
             await Task.CompletedTask;
@@ -56,7 +42,8 @@ namespace D5tools.UWP.ViewModels
         {
             if (suspending)
             {
-                suspensionState[nameof(this.Value)] = this.Value;
+                // Saving for suspension
+                // suspensionState[nameof(this.Value)] = this.Value;
             }
 
             await Task.CompletedTask;
@@ -70,27 +57,15 @@ namespace D5tools.UWP.ViewModels
         }
 
         /// <summary>
-        /// Navigate to the DetailPage
-        /// </summary>
-        public void GotoDetailsPage() =>
-            this.NavigationService.Navigate(typeof(Views.DetailPage), this.Value);
-
-        /// <summary>
         /// Navigate to the SettingsPart of Settings Page
         /// </summary>
         public void GotoSettings() =>
             this.NavigationService.Navigate(typeof(Views.SettingsPage), 0);
 
         /// <summary>
-        /// Navigate to the PrivacyPart of Settings Page
-        /// </summary>
-        public void GotoPrivacy() =>
-            this.NavigationService.Navigate(typeof(Views.SettingsPage), 1);
-
-        /// <summary>
         /// Navigate to the AboutPart of Settings Page
         /// </summary>
         public void GotoAbout() =>
-            this.NavigationService.Navigate(typeof(Views.SettingsPage), 2);
+            this.NavigationService.Navigate(typeof(Views.SettingsPage), 1);
     }
 }

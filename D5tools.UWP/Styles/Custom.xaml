@@ -6,9 +6,22 @@
     <x:Double x:Key="NormalMinWidth">521</x:Double>
     <x:Double x:Key="WideMinWidth">1200</x:Double>
 
+    <ImageBrush x:Key="MainPageBackgroundImage" ImageSource="ms-appx:///Assets/Background/MainPageBackground.png" Stretch="UniformToFill" />
+
     <Color x:Key="CustomColor">SteelBlue</Color>
     <Color x:Key="ContrastColor">White</Color>
     <Color x:Key="SystemAccentColor">SteelBlue</Color>
+
+    <Style x:Key="HamburgerIconStyle" TargetType="Path">
+        <Setter Property="Width" Value="20" />
+        <Setter Property="Height" Value="20" />
+        <Setter Property="Stretch" Value="Uniform" />
+        <Setter Property="Fill" Value="{StaticResource ContrastColor}" />
+    </Style>
+
+    <Style x:Key="EncounterIconStyle" TargetType="Path" BasedOn="{StaticResource HamburgerIconStyle}">
+        <Setter Property="Data" Value="M4.0000045,16.5L15.399982,28 12.800003,30.599991 8.2000219,26 5.0000059,29 5.0000059,29.5C5.0000059,30.899994 3.8999678,32 2.5000028,32 1.0999767,32 -1.6659033E-07,30.899994 0,29.5 -1.6659033E-07,28.099991 1.0999767,27 2.5000028,27L2.7999911,27 2.8999666,27 6.2000195,24 1.3999649,19.099991z M31.900001,0L31.800025,5.6999969 12.800003,22.199997 10.000012,19.099991 26.399995,0.099990845z" />
+    </Style>
 
     <ResourceDictionary.ThemeDictionaries>
 
@@ -16,6 +29,7 @@
 
             <SolidColorBrush x:Key="CustomColorBrush" Color="{StaticResource CustomColor}" />
             <SolidColorBrush x:Key="ContrastColorBrush" Color="{StaticResource ContrastColor}" />
+            <SolidColorBrush x:Key="PageHeaderCustomColorBrush" Color="{StaticResource CustomColor}" Opacity="0.5" />
             <SolidColorBrush x:Key="ExtendedSplashBackground" Color="{StaticResource CustomColor}" />
             <SolidColorBrush x:Key="ExtendedSplashForeground" Color="{StaticResource ContrastColor}" />
 
@@ -37,13 +51,13 @@
                 <Setter Property="GrabberBrush" Value="{ThemeResource CustomColorBrush}" />
                 <Setter Property="GrabberVisibility" Value="Visible" />
             </Style>
-
         </ResourceDictionary>
 
         <ResourceDictionary x:Key="Default">
 
             <SolidColorBrush x:Key="CustomColorBrush" Color="{StaticResource CustomColor}" />
             <SolidColorBrush x:Key="ContrastColorBrush" Color="{StaticResource ContrastColor}" />
+            <SolidColorBrush x:Key="PageHeaderCustomColorBrush" Color="{StaticResource CustomColor}" Opacity="0.5" />
             <SolidColorBrush x:Key="ExtendedSplashBackground" Color="{StaticResource CustomColor}" />
             <SolidColorBrush x:Key="ExtendedSplashForeground" Color="{StaticResource ContrastColor}" />
 
@@ -86,7 +100,6 @@
                 <Setter Property="GrabberBrush" Value="{ThemeResource CustomColorBrush}" />
                 <Setter Property="GrabberVisibility" Value="Visible" />
             </Style>
-
         </ResourceDictionary>
 
         <ResourceDictionary x:Key="HighContrast">
@@ -113,9 +126,6 @@
                 <Setter Property="VisualStateNarrowMinWidth" Value="{ThemeResource NarrowMinWidth}" />
                 <Setter Property="VisualStateNormalMinWidth" Value="{ThemeResource NormalMinWidth}" />
             </Style>
-
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 </ResourceDictionary>
-
-
